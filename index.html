@@ -1,0 +1,186 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GM STORE | المتجر الإلكتروني</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#080a0f;color:white;font-family:Arial,sans-serif}
+header{background:#11151e;padding:22px;text-align:center;border-bottom:2px solid #c49b48}
+.logo{font-size:38px;font-weight:bold;color:#d6ad60}
+.logo span{color:white}
+nav{display:flex;justify-content:center;gap:20px;padding:16px;flex-wrap:wrap}
+a,button{color:white;text-decoration:none;cursor:pointer}
+button{background:#c49b48;border:0;padding:12px 22px;border-radius:7px;font-weight:bold}
+.hero{text-align:center;padding:45px 15px;background:linear-gradient(135deg,#151c2c,#080a0f)}
+.hero h1{font-size:35px;color:#e0b75e}
+section{padding:25px 16px;max-width:1050px;margin:auto}
+h2{color:#e0b75e}
+.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:18px}
+.card{background:#151923;border:1px solid #303746;border-radius:12px;padding:15px;text-align:center}
+.card img{width:100%;height:165px;object-fit:contain;background:#fff;border-radius:8px}
+.price{color:#e4bd68;font-size:21px;font-weight:bold}
+input,select,textarea{width:100%;padding:13px;margin:7px 0;background:#171d29;color:white;border:1px solid #465064;border-radius:7px}
+form{background:#151923;padding:20px;border-radius:12px}
+footer{text-align:center;background:#11151e;padding:25px;color:#aaa}
+</style>
+</head>
+<body>
+
+<header>
+<div class="logo">GM <span>STORE</span></div>
+<p>YOUR TECHNOLOGY DESTINATION</p>
+</header>
+
+<nav>
+<a href="#order">تقديم طلب</a>
+<a href="#products">المنتجات</a>
+<a href="#admin">الإدارة</a>
+<button onclick="changeLang()">FR / AR</button>
+</nav>
+
+<div class="hero">
+<h1>مرحباً بكم في GM STORE</h1>
+<p>اكتشف أحدث الأجهزة الإلكترونية بأفضل الأسعار</p>
+<a href="#order"><button>اطلب الآن</button></a>
+</div>
+
+<section id="order">
+<h2>استمارة تقديم الطلب</h2>
+<form id="orderForm">
+<input id="first" placeholder="الاسم واللقب" required>
+<input id="phone" type="tel" placeholder="رقم الهاتف" required>
+<select id="wilaya" required>
+<option value="">اختر الولاية</option>
+<option>قسنطينة</option>
+<option>الجزائر</option>
+<option>وهران</option>
+<option>سطيف</option>
+<option>عنابة</option>
+<option>باتنة</option>
+<option>أخرى</option>
+</select>
+<input id="address" placeholder="العنوان بالتفصيل" required>
+<select id="product" required>
+<option value="">اختر المنتج</option>
+</select>
+<input id="quantity" type="number" min="1" value="1" required>
+<button type="submit">تقديم الطلب</button>
+<p id="message"></p>
+</form>
+</section>
+
+<section id="products">
+<h2>منتجاتنا</h2>
+<div class="products" id="productList"></div>
+</section>
+
+<section id="admin">
+<h2>إدارة المتجر</h2>
+<p>لوحة تجريبية لإدارة المنتجات على هذا الجهاز.</p>
+<input id="adminPassword" type="password" placeholder="كلمة مرور المدير">
+<button onclick="login()">دخول الإدارة</button>
+<div id="adminPanel" hidden>
+<h3>إضافة منتج</h3>
+<input id="newName" placeholder="اسم المنتج">
+<input id="newPrice" type="number" placeholder="السعر بالدينار">
+<input id="newImage" placeholder="رابط صورة المنتج">
+<button onclick="addProduct()">إضافة المنتج</button>
+<h3>المنتجات</h3>
+<div id="manageProducts"></div>
+<h3>الطلبات المسجلة على هذا الجهاز</h3>
+<div id="orders"></div>
+</div>
+</section>
+
+<footer>
+<h3>GM STORE</h3>
+<p>التكنولوجيا التي تستحقها</p>
+<p>جميع الحقوق محفوظة © GM STORE</p>
+</footer>
+
+<script>
+let products=JSON.parse(localStorage.getItem("gm_products")||"[]");
+let orders=JSON.parse(localStorage.getItem("gm_orders")||"[]");
+
+function save(){
+localStorage.setItem("gm_products",JSON.stringify(products));
+localStorage.setItem("gm_orders",JSON.stringify(orders));
+}
+
+function render(){
+productList.innerHTML="";
+product.innerHTML='<option value="">اختر المنتج</option>';
+products.forEach((p,i)=>{
+productList.innerHTML+=`
+<div class="card">
+<img src="${p.image}" alt="${p.name}" onerror="this.style.display='none'">
+<h3>${p.name}</h3>
+<p class="price">${p.price} دج</p>
+<button onclick="document.getElementById('product').value='${p.name}';location.hash='order'">اطلب الآن</button>
+</div>`;
+product.innerHTML+=`<option>${p.name}</option>`;
+});
+}
+
+document.getElementById("orderForm").addEventListener("submit",function(e){
+e.preventDefault();
+orders.push({
+name:first.value,
+phone:phone.value,
+wilaya:wilaya.value,
+address:address.value,
+product:product.value,
+quantity:quantity.value,
+date:new Date().toLocaleString()
+});
+save();
+message.textContent="تم تسجيل الطلب على هذا الجهاز بنجاح.";
+this.reset();
+});
+
+function login(){
+if(adminPassword.value==="GM2026!"){
+adminPanel.hidden=false;
+showAdmin();
+}else alert("كلمة المرور غير صحيحة");
+}
+
+function addProduct(){
+if(!newName.value||!newPrice.value)return alert("أدخل اسم المنتج والسعر");
+products.push({
+name:newName.value,
+price:newPrice.value,
+image:newImage.value||""
+});
+save();render();showAdmin();
+newName.value="";newPrice.value="";newImage.value="";
+}
+
+function showAdmin(){
+manageProducts.innerHTML="";
+products.forEach((p,i)=>{
+manageProducts.innerHTML+=`
+<p>${p.name} - ${p.price} دج
+<button onclick="deleteProduct(${i})">حذف</button></p>`;
+});
+orders.innerHTML=orders.map(o=>
+`<div class="card"><p>${o.name} - ${o.phone}</p>
+<p>${o.wilaya} - ${o.address}</p>
+<p>${o.product} × ${o.quantity}</p></div>`
+).join("");
+}
+
+function deleteProduct(i){
+products.splice(i,1);save();render();showAdmin();
+}
+
+function changeLang(){
+alert("الواجهة الفرنسية ستتم إضافتها في المرحلة القادمة.");
+}
+render();
+</script>
+</body>
+</html>
