@@ -1,165 +1,387 @@
 
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GM STORE - المتجر الإلكتروني</title>
 <style>
-input,textarea,select{
- width:100%;padding:12px;margin:7px 0 13px;
- background:#091426;color:white;border:1px solid #29466a;
- border-radius:8px
+:root{
+ --bg:#080d18;--card:#111d30;--blue:#087cff;
+ --blue2:#35aaff;--white:#f5f8ff;--muted:#a9bad0;
 }
-label{color:#c5d9f5}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--white);font-family:Arial,sans-serif}
+header{background:#0c1525;border-bottom:1px solid #203957;padding:15px 5%;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.logo{font-size:28px;font-weight:900;letter-spacing:1px}
+.logo span{color:#168cff}
+nav{display:flex;gap:8px;flex-wrap:wrap}
+button{background:var(--blue);color:white;border:0;border-radius:8px;padding:11px 16px;font-weight:bold;cursor:pointer}
+button:hover{background:#0065d6}
+nav button,.secondary{background:#1b2d46}
+.hero{text-align:center;padding:55px 15px;background:linear-gradient(120deg,#071426,#123c70,#071426)}
+.hero h1{font-size:38px;margin:10px}
+.hero p{color:#c6dafa}
+.hero span{color:#40adff}
+.ad{margin:22px 5%;padding:19px;text-align:center;border:1px solid #1765a8;border-radius:12px;background:linear-gradient(90deg,#10223c,#123c68)}
+.ad small{display:block;color:#75baff;margin-bottom:8px}
+.container{max-width:1200px;margin:auto;padding:28px 5%}
+h2.section{border-right:4px solid var(--blue);padding-right:12px}
+.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
+.product{background:var(--card);border:1px solid #203957;border-radius:13px;overflow:hidden}
+.product img{width:100%;height:190px;object-fit:cover;background:#17263c}
+.info{padding:15px}
+.price{color:#40adff;font-size:20px;font-weight:bold}
+.muted{color:var(--muted);font-size:14px;line-height:1.6}
+.actions{display:flex;gap:8px;margin-top:13px}
+.actions button{flex:1}
+.panel{background:var(--card);border:1px solid #203957;border-radius:12px;padding:20px;margin:15px 0}
+input,textarea,select{width:100%;padding:12px;margin:7px 0 14px;background:#091426;color:white;border:1px solid #29466a;border-radius:8px}
+label{color:#c5d9f5;font-size:14px}
 .hidden{display:none!important}
-footer{text-align:center;padding:25px;background:#080d18;color:#91a8c5}
-.product button{margin-top:5px}
+footer{text-align:center;background:#0c1525;color:#9db0c8;padding:28px;margin-top:40px}
+.badge{background:#123e6b;color:#8bcaff;padding:5px 9px;border-radius:20px;font-size:12px}
+#notice{position:fixed;bottom:15px;left:15px;background:#087cff;padding:13px 18px;border-radius:9px;display:none;z-index:10}
+@media(max-width:600px){
+ .hero h1{font-size:27px}
+ header{justify-content:center}
+ nav{justify-content:center}
+}
 </style>
+</head>
+<body>
 
-<div class="container">
- <section id="productPage" class="panel hidden"></section>
+<header>
+ <div class="logo">GM <span>STORE</span></div>
+ <nav>
+  <button onclick="home()">الرئيسية</button>
+  <button onclick="showAdmin()">الإدارة</button>
+  <button onclick="showAds()">الإعلانات</button>
+  <button onclick="toggleLanguage()" id="langBtn">Français</button>
+ </nav>
+</header>
 
- <section id="orderPage" class="panel hidden">
-  <h2>إتمام الطلب</h2>
+<section class="hero">
+ <span class="badge">GM STORE ONLINE</span>
+ <h1 id="heroTitle">مرحباً بك في <span>GM STORE</span></h1>
+ <p id="heroText">اكتشف أحدث المنتجات والعروض بأسعار مميزة</p>
+ <button onclick="scrollProducts()" id="shopBtn">تسوق الآن</button>
+</section>
+
+<div class="ad" id="adBanner">
+ <small>مساحة إعلانية</small>
+ <strong id="adText">عروض GM STORE — اكتشف منتجاتنا الجديدة اليوم</strong>
+</div>
+
+<main class="container" id="mainPage">
+ <h2 class="section" id="productsTitle">أحدث المنتجات</h2>
+ <div class="products" id="products"></div>
+</main>
+
+<main class="container hidden" id="detailPage">
+ <div class="panel" id="detailContent"></div>
+</main>
+
+<main class="container hidden" id="orderPage">
+ <div class="panel">
+  <h2>استمارة الطلب</h2>
   <form id="orderForm">
-   <label>الاسم</label><input name="first" required>
-   <label>اللقب</label><input name="last" required>
-   <label>رقم الهاتف</label><input name="phone" type="tel" required>
+   <label>الاسم</label>
+   <input name="first" required>
+   <label>اللقب</label>
+   <input name="last" required>
+   <label>رقم الهاتف</label>
+   <input name="phone" type="tel" required>
    <label>الولاية</label>
    <select name="wilaya" required>
     <option value="">اختر الولاية</option>
-    <option>قسنطينة</option><option>الجزائر</option>
-    <option>وهران</option><option>سطيف</option>
-    <option>عنابة</option><option>باتنة</option>
-    <option>تيزي وزو</option><option>البليدة</option>
+    <option>أدرار</option><option>الشلف</option><option>الأغواط</option>
+    <option>أم البواقي</option><option>باتنة</option><option>بجاية</option>
+    <option>بسكرة</option><option>بشار</option><option>البليدة</option>
+    <option>البويرة</option><option>تمنراست</option><option>تبسة</option>
+    <option>تلمسان</option><option>تيارت</option><option>تيزي وزو</option>
+    <option>الجزائر</option><option>الجلفة</option><option>جيجل</option>
+    <option>سطيف</option><option>سعيدة</option><option>سكيكدة</option>
+    <option>عنابة</option><option>قالمة</option><option>قسنطينة</option>
+    <option>المدية</option><option>مستغانم</option><option>المسيلة</option>
+    <option>معسكر</option><option>ورقلة</option><option>وهران</option>
+    <option>البيض</option><option>إليزي</option><option>برج بوعريريج</option>
+    <option>بومرداس</option><option>الطارف</option><option>تندوف</option>
+    <option>تيسمسيلت</option><option>الوادي</option><option>خنشلة</option>
+    <option>سوق أهراس</option><option>تيبازة</option><option>ميلة</option>
+    <option>عين الدفلى</option><option>النعامة</option><option>عين تموشنت</option>
+    <option>غرداية</option><option>غليزان</option>
    </select>
-   <label>العنوان بالتفصيل</label><textarea name="address" required></textarea>
-   <label>المنتج</label><input name="product" id="orderProduct" readonly>
-   <label>الكمية</label><input name="quantity" type="number" min="1" value="1" required>
+   <label>العنوان بالتفصيل</label>
+   <textarea name="address" required></textarea>
+   <label>المنتج</label>
+   <input name="product" id="orderProduct" readonly required>
+   <label>الكمية</label>
+   <input name="quantity" type="number" min="1" value="1" required>
    <button type="submit">تأكيد الطلب</button>
+   <button type="button" class="secondary" onclick="home()">رجوع</button>
   </form>
   <p id="orderMessage"></p>
- </section>
+ </div>
+</main>
 
- <section id="adminPage" class="panel hidden">
-  <h2>لوحة إدارة GM STORE</h2>
-  <div id="login">
-   <input id="password" type="password" placeholder="كلمة مرور المدير">
+<main class="container hidden" id="adminPage">
+ <div class="panel">
+  <h2>لوحة تحكم المدير</h2>
+  <div id="loginBox">
+   <label>كلمة مرور المدير التجريبية</label>
+   <input id="adminPassword" type="password" placeholder="كلمة المرور">
    <button onclick="login()">دخول</button>
   </div>
-  <div id="adminArea" class="hidden">
-   <h3>إضافة أو تعديل منتج</h3>
-   <input id="pname" placeholder="اسم المنتج">
-   <input id="pprice" type="number" placeholder="السعر بالدينار">
-   <input id="pimage" placeholder="رابط صورة المنتج">
-   <textarea id="pdesc" placeholder="وصف المنتج"></textarea>
-   <button onclick="saveProduct()">حفظ المنتج</button>
-   <button class="secondary" onclick="logout()">خروج</button>
-   <h3>المنتجات</h3><div id="adminProducts"></div>
-   <h3>الطلبات المسجلة على هذا الجهاز</h3><div id="orders"></div>
-  </div>
- </section>
-</div>
 
-<footer>GM STORE © 2026 | جميع الحقوق محفوظة</footer>
+  <div id="adminArea" class="hidden">
+   <h3>إضافة منتج أو تعديله</h3>
+   <label>اسم المنتج</label>
+   <input id="pname" placeholder="مثلاً: هاتف ذكي">
+   <label>السعر بالدينار</label>
+   <input id="pprice" type="number" placeholder="السعر">
+   <label>رابط صورة المنتج</label>
+   <input id="pimage" placeholder="https://example.com/image.jpg">
+   <label>وصف المنتج</label>
+   <textarea id="pdesc" placeholder="اكتب وصف المنتج"></textarea>
+   <button onclick="saveProduct()">حفظ المنتج</button>
+   <button class="secondary" onclick="cancelEdit()">إلغاء التعديل</button>
+
+   <h3>إدارة المنتجات</h3>
+   <div id="adminProducts"></div>
+
+   <h3>إدارة الإعلانات</h3>
+   <input id="newAd" placeholder="اكتب نص الإعلان">
+   <button onclick="saveAd()">تحديث الإعلان</button>
+
+   <h3>الطلبات المسجلة على هذا الجهاز</h3>
+   <div id="orders"></div>
+   <button class="secondary" onclick="logout()">تسجيل الخروج</button>
+  </div>
+ </div>
+</main>
+
+<main class="container hidden" id="adsPage">
+ <div class="panel">
+  <h2>إعلانات GM STORE</h2>
+  <p id="adsContent">عروض ومنتجات جديدة في انتظاركم.</p>
+ </div>
+</main>
+
+<footer>
+ <h3>GM <span style="color:#168cff">STORE</span></h3>
+ <p>متجرك الإلكتروني — الجزائر</p>
+ <p>جميع الحقوق محفوظة © 2026</p>
+</footer>
+<div id="notice"></div>
 
 <script>
-let products=JSON.parse(localStorage.getItem("gm_products")||"[]");
-let orders=JSON.parse(localStorage.getItem("gm_orders")||"[]");
+const initialProducts=[
+ {id:1,name:"هاتف ذكي",price:45000,image:"https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=700",desc:"هاتف ذكي بتصميم عصري ومميزات رائعة."},
+ {id:2,name:"حاسوب محمول",price:125000,image:"https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=700",desc:"حاسوب مناسب للعمل والدراسة."},
+ {id:3,name:"سماعات لاسلكية",price:6500,image:"https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=700",desc:"سماعات للاستماع إلى الموسيقى."}
+];
+let products=read("gm_products",initialProducts);
+let orders=read("gm_orders",[]);
 let editId=null;
+let currentProduct=null;
+let french=false;
 
-function save(){
- localStorage.setItem("gm_products",JSON.stringify(products));
- localStorage.setItem("gm_orders",JSON.stringify(orders));
+function read(key,fallback){
+ try{
+  const value=localStorage.getItem(key);
+  return value?JSON.parse(value):fallback;
+ }catch(e){return fallback;}
 }
-function show(id){
- ["productPage","orderPage","adminPage"].forEach(x=>
- document.getElementById(x).classList.add("hidden"));
- if(id)document.getElementById(id).classList.remove("hidden");
- window.scrollTo(0,0);
+function persist(){
+ try{
+  localStorage.setItem("gm_products",JSON.stringify(products));
+  localStorage.setItem("gm_orders",JSON.stringify(orders));
+ }catch(e){alert("مساحة التخزين على الجهاز غير كافية.");}
 }
-function safe(s){
- return String(s??"").replace(/[&<>"']/g,c=>({
+function safe(value){
+ return String(value??"").replace(/[&<>"']/g,c=>({
  "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
  }[c]));
 }
+function notify(message){
+ const el=document.getElementById("notice");
+ el.textContent=message;
+ el.style.display="block";
+ setTimeout(()=>el.style.display="none",2500);
+}
+function hidePages(){
+ ["mainPage","detailPage","orderPage","adminPage","adsPage"].forEach(id=>
+ document.getElementById(id).classList.add("hidden"));
+}
+function home(){
+ hidePages();
+ document.getElementById("mainPage").classList.remove("hidden");
+ window.scrollTo(0,0);
+}
+function scrollProducts(){
+ home();
+ document.getElementById("productsTitle").scrollIntoView({behavior:"smooth"});
+}
+function showAdmin(){
+ hidePages();
+ document.getElementById("adminPage").classList.remove("hidden");
+ window.scrollTo(0,0);
+}
+function showAds(){
+ hidePages();
+ document.getElementById("adsPage").classList.remove("hidden");
+ window.scrollTo(0,0);
+}
 function render(){
- let area=document.getElementById("products");
- if(area)area.innerHTML=products.map((p,i)=>`
+ const area=document.getElementById("products");
+ area.innerHTML=products.map(p=>`
  <article class="product">
- <img src="${safe(p.image)}" alt="${safe(p.name)}"
- onerror="this.src='https://placehold.co/600x400/101a2b/ffffff?text=GM+STORE'">
- <div class="product-info">
- <h3>${safe(p.name)}</h3>
- <div class="price">${Number(p.price).toLocaleString()} دج</div>
- <p class="muted">${safe(p.desc)}</p>
- <div class="actions">
- <button onclick="details(${i})">التفاصيل</button>
- <button onclick="buy(${i})">اطلب الآن</button>
- </div></div></article>`).join("")||"<p>لا توجد منتجات حالياً.</p>";
+  <img src="${safe(p.image)}" alt="${safe(p.name)}"
+   onerror="this.src='https://placehold.co/600x400/101d30/ffffff?text=GM+STORE'">
+  <div class="info">
+   <h3>${safe(p.name)}</h3>
+   <div class="price">${Number(p.price).toLocaleString("fr-FR")} دج</div>
+   <p class="muted">${safe(p.desc)}</p>
+   <div class="actions">
+    <button onclick="details(${Number(p.id)})">التفاصيل</button>
+    <button onclick="buy(${Number(p.id)})">اطلب الآن</button>
+   </div>
+  </div>
+ </article>`).join("")||"<p>لا توجد منتجات حالياً.</p>";
 }
-function details(i){
- let p=products[i];
- let el=document.getElementById("productPage");
- el.innerHTML=`<img style="width:100%;max-height:350px;object-fit:contain" src="${safe(p.image)}">
- <h2>${safe(p.name)}</h2><h3 class="price">${Number(p.price).toLocaleString()} دج</h3>
- <p>${safe(p.desc)}</p><button onclick="buy(${i})">اطلب الآن</button>
- <button class="secondary" onclick="show(null)">رجوع</button>`;
- show("productPage");
+function details(id){
+ const p=products.find(x=>x.id===id);
+ if(!p)return;
+ currentProduct=id;
+ hidePages();
+ const box=document.getElementById("detailPage");
+ box.classList.remove("hidden");
+ document.getElementById("detailContent").innerHTML=`
+  <img src="${safe(p.image)}" style="width:100%;max-height:350px;object-fit:contain"
+   onerror="this.src='https://placehold.co/600x400/101d30/ffffff?text=GM+STORE'">
+  <h2>${safe(p.name)}</h2>
+  <div class="price">${Number(p.price).toLocaleString("fr-FR")} دج</div>
+  <p>${safe(p.desc)}</p>
+  <button onclick="buy(${Number(p.id)})">اطلب الآن</button>
+  <button class="secondary" onclick="home()">رجوع</button>`;
 }
-function buy(i){
- document.getElementById("orderProduct").value=products[i].name;
- show("orderPage");
+function buy(id){
+ const p=products.find(x=>x.id===id);
+ if(!p)return;
+ currentProduct=id;
+ document.getElementById("orderProduct").value=p.name;
+ hidePages();
+ document.getElementById("orderPage").classList.remove("hidden");
+ window.scrollTo(0,0);
 }
-document.getElementById("orderForm").addEventListener("submit",e=>{
+document.getElementById("orderForm").addEventListener("submit",function(e){
  e.preventDefault();
- let data=Object.fromEntries(new FormData(e.target).entries());
- orders.push({...data,date:new Date().toLocaleString("ar-DZ")});
- save();
+ const data=Object.fromEntries(new FormData(this).entries());
+ data.date=new Date().toLocaleString("ar-DZ");
+ data.id=Date.now();
+ orders.push(data);
+ persist();
  document.getElementById("orderMessage").textContent=
  "تم تسجيل الطلب على هذا الجهاز التجريبي.";
- e.target.reset();
+ notify("تم تسجيل الطلب التجريبي");
+ this.reset();
 });
 function login(){
- if(document.getElementById("password").value==="GM2026!"){
- document.getElementById("login").classList.add("hidden");
- document.getElementById("adminArea").classList.remove("hidden");
- adminRender();
- }else alert("كلمة المرور غير صحيحة");
+ if(document.getElementById("adminPassword").value==="GM2026!"){
+  document.getElementById("loginBox").classList.add("hidden");
+  document.getElementById("adminArea").classList.remove("hidden");
+  adminRender();
+  notify("تم فتح لوحة الإدارة");
+ }else{
+  alert("كلمة المرور غير صحيحة");
+ }
 }
 function logout(){
  document.getElementById("adminArea").classList.add("hidden");
- document.getElementById("login").classList.remove("hidden");
- document.getElementById("password").value="";
+ document.getElementById("loginBox").classList.remove("hidden");
+ document.getElementById("adminPassword").value="";
 }
 function saveProduct(){
- let name=document.getElementById("pname").value.trim();
- let price=Number(document.getElementById("pprice").value);
- let image=document.getElementById("pimage").value.trim();
- let desc=document.getElementById("pdesc").value.trim();
- if(!name||price<=0){alert("أدخل اسم المنتج وسعراً صحيحاً");return}
- let p={name,price,image,desc};
- if(editId===null)products.push(p);else products[editId]=p;
- editId=null;save();render();adminRender();
- ["pname","pprice","pimage","pdesc"].forEach(id=>document.getElementById(id).value="");
+ const name=document.getElementById("pname").value.trim();
+ const price=Number(document.getElementById("pprice").value);
+ const image=document.getElementById("pimage").value.trim();
+ const desc=document.getElementById("pdesc").value.trim();
+ if(!name||!Number.isFinite(price)||price<=0){
+  alert("أدخل اسم المنتج وسعراً صحيحاً.");
+  return;
+ }
+ const p={id:editId??Date.now(),name,price,image,desc};
+ if(editId===null)products.push(p);
+ else products=products.map(x=>x.id===editId?p:x);
+ persist();
+ cancelEdit();
+ render();
+ adminRender();
+ notify("تم حفظ المنتج");
 }
-function adminRender(){
- document.getElementById("adminProducts").innerHTML=products.map((p,i)=>`
- <div class="panel"><b>${safe(p.name)}</b> — ${Number(p.price)} دج
- <button onclick="editProduct(${i})">تعديل</button>
- <button onclick="deleteProduct(${i})">حذف</button></div>`).join("");
- document.getElementById("orders").innerHTML=orders.map(o=>`
- <div class="panel"><b>${safe(o.first)} ${safe(o.last)}</b>
- <p>${safe(o.phone)} — ${safe(o.wilaya)}</p>
- <p>${safe(o.product)} × ${safe(o.quantity)}</p>
- <p>${safe(o.address)}</p><small>${safe(o.date)}</small></div>`).join("")||"لا توجد طلبات.";
-}
-function editProduct(i){
- let p=products[i];editId=i;
+function editProduct(id){
+ const p=products.find(x=>x.id===id);
+ if(!p)return;
+ editId=id;
  document.getElementById("pname").value=p.name;
  document.getElementById("pprice").value=p.price;
  document.getElementById("pimage").value=p.image;
  document.getElementById("pdesc").value=p.desc;
+ window.scrollTo(0,0);
 }
-function deleteProduct(i){
- if(confirm("هل تريد حذف المنتج؟")){
- products.splice(i,1);save();render();adminRender();
- }
+function cancelEdit(){
+ editId=null;
+ ["pname","pprice","pimage","pdesc"].forEach(id=>
+ document.getElementById(id).value="");
+}
+function deleteProduct(id){
+ if(!confirm("هل تريد حذف هذا المنتج؟"))return;
+ products=products.filter(p=>p.id!==id);
+ persist();render();adminRender();
+ notify("تم حذف المنتج");
+}
+function adminRender(){
+ document.getElementById("adminProducts").innerHTML=products.map(p=>`
+  <div class="panel">
+   <b>${safe(p.name)}</b> — ${Number(p.price).toLocaleString("fr-FR")} دج
+   <p><button onclick="editProduct(${Number(p.id)})">تعديل</button>
+   <button onclick="deleteProduct(${Number(p.id)})">حذف</button></p>
+  </div>`).join("")||"لا توجد منتجات.";
+ document.getElementById("orders").innerHTML=orders.map(o=>`
+  <div class="panel">
+   <b>${safe(o.first)} ${safe(o.last)}</b>
+   <p>الهاتف: ${safe(o.phone)}</p>
+   <p>الولاية: ${safe(o.wilaya)}</p>
+   <p>المنتج: ${safe(o.product)} — الكمية: ${safe(o.quantity)}</p>
+   <p>العنوان: ${safe(o.address)}</p>
+   <small>${safe(o.date)}</small>
+  </div>`).join("")||"لا توجد طلبات.";
+}
+function saveAd(){
+ const text=document.getElementById("newAd").value.trim();
+ if(!text)return;
+ localStorage.setItem("gm_ad",text);
+ document.getElementById("adText").textContent=text;
+ document.getElementById("adsContent").textContent=text;
+ notify("تم تحديث الإعلان على هذا الجهاز");
+}
+function toggleLanguage(){
+ french=!french;
+ document.documentElement.lang=french?"fr":"ar";
+ document.documentElement.dir=french?"ltr":"rtl";
+ document.getElementById("langBtn").textContent=french?"العربية":"Français";
+ document.getElementById("heroTitle").innerHTML=french?
+ 'Bienvenue chez <span>GM STORE</span>':'مرحباً بك في <span>GM STORE</span>';
+ document.getElementById("heroText").textContent=french?
+ "Découvrez nos produits et offres":"اكتشف أحدث المنتجات والعروض بأسعار مميزة";
+ document.getElementById("shopBtn").textContent=french?"Acheter":"تسوق الآن";
+ document.getElementById("productsTitle").textContent=french?"Nouveaux produits":"أحدث المنتجات";
+}
+const oldAd=localStorage.getItem("gm_ad");
+if(oldAd){
+ document.getElementById("adText").textContent=oldAd;
+ document.getElementById("adsContent").textContent=oldAd;
 }
 render();
 </script>
