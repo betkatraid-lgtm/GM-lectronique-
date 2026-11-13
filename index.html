@@ -4,386 +4,413 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GM STORE - المتجر الإلكتروني</title>
+<title>سوق الرحبة | RAHBA MARKET</title>
 <style>
 :root{
- --bg:#080d18;--card:#111d30;--blue:#087cff;
- --blue2:#35aaff;--white:#f5f8ff;--muted:#a9bad0;
+ --gold:#d7b45a;--dark:#101114;--panel:#191b20;
+ --muted:#a9a9a9;--white:#f7f5ef;--line:#303137;
 }
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--white);font-family:Arial,sans-serif}
-header{background:#0c1525;border-bottom:1px solid #203957;padding:15px 5%;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
-.logo{font-size:28px;font-weight:900;letter-spacing:1px}
-.logo span{color:#168cff}
+body{margin:0;background:#f5f3ee;color:#202126;font-family:Tahoma,Arial,sans-serif}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+.adbar{background:#08090b;color:#f2d47d;padding:11px 0;overflow:hidden;white-space:nowrap;border-bottom:1px solid #705b2e}
+.adtrack{display:inline-block;min-width:200%;animation:move 25s linear infinite;font-size:13px}
+.adtrack span{margin:0 35px}
+@keyframes move{from{transform:translateX(0)}to{transform:translateX(50%)}}
+header{background:var(--dark);color:white;padding:17px 5%;display:flex;align-items:center;justify-content:space-between;gap:15px;flex-wrap:wrap}
+.logo{font-size:25px;font-weight:bold;color:var(--gold)}
+.logo small{display:block;color:#ddd;font-size:10px;letter-spacing:3px;margin-top:4px}
 nav{display:flex;gap:8px;flex-wrap:wrap}
-button{background:var(--blue);color:white;border:0;border-radius:8px;padding:11px 16px;font-weight:bold;cursor:pointer}
-button:hover{background:#0065d6}
-nav button,.secondary{background:#1b2d46}
-.hero{text-align:center;padding:55px 15px;background:linear-gradient(120deg,#071426,#123c70,#071426)}
-.hero h1{font-size:38px;margin:10px}
-.hero p{color:#c6dafa}
-.hero span{color:#40adff}
-.ad{margin:22px 5%;padding:19px;text-align:center;border:1px solid #1765a8;border-radius:12px;background:linear-gradient(90deg,#10223c,#123c68)}
-.ad small{display:block;color:#75baff;margin-bottom:8px}
-.container{max-width:1200px;margin:auto;padding:28px 5%}
-h2.section{border-right:4px solid var(--blue);padding-right:12px}
-.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
-.product{background:var(--card);border:1px solid #203957;border-radius:13px;overflow:hidden}
-.product img{width:100%;height:190px;object-fit:cover;background:#17263c}
-.info{padding:15px}
-.price{color:#40adff;font-size:20px;font-weight:bold}
-.muted{color:var(--muted);font-size:14px;line-height:1.6}
-.actions{display:flex;gap:8px;margin-top:13px}
-.actions button{flex:1}
-.panel{background:var(--card);border:1px solid #203957;border-radius:12px;padding:20px;margin:15px 0}
-input,textarea,select{width:100%;padding:12px;margin:7px 0 14px;background:#091426;color:white;border:1px solid #29466a;border-radius:8px}
-label{color:#c5d9f5;font-size:14px}
+nav button,.headbtn{background:transparent;color:white;border:1px solid #555;padding:9px 13px;border-radius:7px}
+nav button:hover,.headbtn:hover{border-color:var(--gold);color:var(--gold)}
+.hero{background:linear-gradient(110deg,#101114,#25221a);color:white;padding:55px 7%;display:grid;grid-template-columns:1.3fr .7fr;gap:25px;align-items:center}
+.hero h1{font-size:clamp(30px,5vw,54px);margin:10px 0;color:#f3d47d}
+.hero p{color:#ddd;line-height:2}
+.hero .tag{color:var(--gold);letter-spacing:2px}
+.hero-box{border:1px solid #8e7438;padding:25px;border-radius:14px;background:#ffffff08;text-align:center}
+.hero-box strong{font-size:32px;color:var(--gold);display:block;margin:10px}
+.goldbtn{background:linear-gradient(120deg,#e8ce7e,#b48a35);border:0;color:#151515;padding:12px 19px;border-radius:7px;font-weight:bold}
+main{max-width:1200px;margin:auto;padding:28px 4%}
+.section-title{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin:10px 0 20px}
+.section-title h2{margin:0;color:#17181c}
+.tools{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:20px}
+.tools input,.tools select{padding:11px;border:1px solid #ddd;border-radius:7px;background:white;min-width:160px}
+.products{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:17px}
+.card{background:white;border:1px solid #e7e4dc;border-radius:12px;overflow:hidden;box-shadow:0 5px 18px #00000009}
+.product-img{height:190px;background:#e9e6df;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.product-img img{width:100%;height:100%;object-fit:cover}
+.product-img .placeholder{font-size:45px;color:#999}
+.cardbody{padding:14px}
+.cardbody h3{margin:0 0 8px;font-size:16px}
+.price{color:#96701e;font-size:19px;font-weight:bold;margin:10px 0}
+.small{color:#777;font-size:12px;line-height:1.7}
+.card button{width:100%;margin-top:10px}
+.panel{background:white;border:1px solid #e5e1d8;border-radius:12px;padding:20px;margin:18px 0}
 .hidden{display:none!important}
-footer{text-align:center;background:#0c1525;color:#9db0c8;padding:28px;margin-top:40px}
-.badge{background:#123e6b;color:#8bcaff;padding:5px 9px;border-radius:20px;font-size:12px}
-#notice{position:fixed;bottom:15px;left:15px;background:#087cff;padding:13px 18px;border-radius:9px;display:none;z-index:10}
-@media(max-width:600px){
- .hero h1{font-size:27px}
+.formgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.field{display:flex;flex-direction:column;gap:6px}
+.field.full{grid-column:1/-1}
+.field label{font-size:13px;font-weight:bold}
+.field input,.field select,.field textarea{width:100%;padding:11px;border:1px solid #d8d6d0;border-radius:7px;background:#fff}
+.field textarea{min-height:80px;resize:vertical}
+.action{border:0;border-radius:7px;padding:10px 14px;background:#17191e;color:white}
+.action.gold{background:#c39a43;color:#151515;font-weight:bold}
+.action.red{background:#9f3333}
+.action.green{background:#286c4b}
+.action:disabled{opacity:.5;cursor:not-allowed}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:15px 0}
+.tabs button{border:1px solid #ddd;background:#fff;padding:10px 13px;border-radius:7px}
+.tabs button.active{background:#17191e;color:#f1d27b;border-color:#17191e}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.stat{background:#191b20;color:white;border-radius:10px;padding:16px}
+.stat strong{display:block;color:var(--gold);font-size:24px;margin-top:8px}
+.tablewrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:600px}
+th,td{text-align:right;padding:12px;border-bottom:1px solid #eee;font-size:13px}
+th{background:#f3f0e8}
+.status{display:inline-block;padding:5px 8px;border-radius:20px;background:#eee;font-size:11px}
+footer{background:#101114;color:#ddd;text-align:center;padding:28px 15px;margin-top:40px}
+footer strong{color:var(--gold)}
+.notice{padding:12px;border-radius:8px;background:#f6f0df;color:#655020;font-size:13px;line-height:1.8;margin:12px 0}
+.empty{padding:30px;text-align:center;color:#888;background:#fff;border-radius:10px}
+@media(max-width:700px){
+ .hero{grid-template-columns:1fr;padding:35px 6%}
  header{justify-content:center}
  nav{justify-content:center}
+ .formgrid{grid-template-columns:1fr}
+ .field.full{grid-column:auto}
+ .stats{grid-template-columns:repeat(2,1fr)}
 }
 </style>
 </head>
 <body>
 
+<div class="adbar">
+ <div class="adtrack">
+  <span>✦ سوق الرحبة — وجهتك التجارية في قسنطينة</span>
+  <span>✦ سجل محلك التجاري واعرض منتجاتك</span>
+  <span>✦ اكتشف أحدث الملابس الرجالية والإكسسوارات</span>
+  <span>✦ عروض مميزة من محلات الرحبة</span>
+  <span>✦ سوق الرحبة — تجارة تجمع البائع والمشتري</span>
+ </div>
+</div>
+
 <header>
- <div class="logo">GM <span>STORE</span></div>
+ <div class="logo">سوق الرحبة <small>RAHBA MARKET · CONSTANTINE</small></div>
  <nav>
-  <button onclick="home()">الرئيسية</button>
-  <button onclick="showAdmin()">الإدارة</button>
-  <button onclick="showAds()">الإعلانات</button>
-  <button onclick="toggleLanguage()" id="langBtn">Français</button>
+  <button onclick="showPage('home')">الرئيسية</button>
+  <button onclick="showPage('shops')">المحلات</button>
+  <button onclick="showPage('seller')">انضم كبائع</button>
+  <button onclick="showPage('cart')">السلة <span id="cartCount">0</span></button>
+  <button onclick="showPage('admin')">لوحة المدير</button>
  </nav>
 </header>
 
-<section class="hero">
- <span class="badge">GM STORE ONLINE</span>
- <h1 id="heroTitle">مرحباً بك في <span>GM STORE</span></h1>
- <p id="heroText">اكتشف أحدث المنتجات والعروض بأسعار مميزة</p>
- <button onclick="scrollProducts()" id="shopBtn">تسوق الآن</button>
+<section class="hero" id="hero">
+ <div>
+  <div class="tag">من قسنطينة إلى عالم التجارة</div>
+  <h1>تسوّق بثقة<br>من سوق الرحبة</h1>
+  <p>منصة تجمع المحلات التجارية والبائعين في مكان واحد. اكتشف المنتجات، قارن الأسعار، واطلب ما يناسبك بسهولة.</p>
+  <button class="goldbtn" onclick="showPage('shops')">اكتشف المنتجات الآن</button>
+ </div>
+ <div class="hero-box">
+  <div style="font-size:45px">♛</div>
+  <h2>عالم من الاختيارات</h2>
+  <strong>RAHBA MARKET</strong>
+  <p class="small" style="color:#ddd">منصة تجارية بإدارة مركزية لخدمة البائع والمشتري</p>
+ </div>
 </section>
 
-<div class="ad" id="adBanner">
- <small>مساحة إعلانية</small>
- <strong id="adText">عروض GM STORE — اكتشف منتجاتنا الجديدة اليوم</strong>
-</div>
+<main>
+<section id="home">
+ <div class="section-title">
+  <h2>منتجات مختارة</h2>
+  <span class="small">تسوّق من محلات سوق الرحبة</span>
+ </div>
+ <div class="tools">
+  <input id="homeSearch" placeholder="ابحث عن منتج..." oninput="renderProducts('homeProducts',this.value)">
+  <select id="homeCategory" onchange="renderProducts('homeProducts',document.getElementById('homeSearch').value)">
+   <option value="">كل التصنيفات</option>
+   <option>ملابس رجالية</option><option>أحذية</option><option>ساعات</option><option>إكسسوارات</option><option>عطور</option>
+  </select>
+ </div>
+ <div id="homeProducts" class="products"></div>
+ <div class="panel" style="margin-top:35px;background:#191b20;color:white">
+  <h2 style="color:#e5c36d">هل تملك محلاً تجارياً؟</h2>
+  <p style="line-height:1.9;color:#ddd">انضم إلى سوق الرحبة، اعرض منتجاتك أمام العملاء، وتابع طلباتك من لوحة البائع.</p>
+  <button class="goldbtn" onclick="showPage('seller')">سجّل محلك الآن</button>
+ </div>
+</section>
 
-<main class="container" id="mainPage">
- <h2 class="section" id="productsTitle">أحدث المنتجات</h2>
- <div class="products" id="products"></div>
-</main>
+<section id="shops" class="hidden">
+ <div class="section-title"><h2>سوق المنتجات</h2><span class="small">منتجات البائعين المعتمدة</span></div>
+ <div class="tools">
+  <input id="shopSearch" placeholder="ابحث عن اسم المنتج أو المحل..." oninput="renderProducts('shopProducts',this.value)">
+  <select id="shopCategory" onchange="renderProducts('shopProducts',document.getElementById('shopSearch').value)">
+   <option value="">كل التصنيفات</option>
+   <option>ملابس رجالية</option><option>أحذية</option><option>ساعات</option><option>إكسسوارات</option><option>عطور</option>
+  </select>
+ </div>
+ <div id="shopProducts" class="products"></div>
+</section>
 
-<main class="container hidden" id="detailPage">
- <div class="panel" id="detailContent"></div>
-</main>
-
-<main class="container hidden" id="orderPage">
+<section id="seller" class="hidden">
+ <div class="section-title"><h2>بوابة البائعين</h2><span class="small">انضم إلى شبكة سوق الرحبة</span></div>
  <div class="panel">
-  <h2>استمارة الطلب</h2>
-  <form id="orderForm">
-   <label>الاسم</label>
-   <input name="first" required>
-   <label>اللقب</label>
-   <input name="last" required>
-   <label>رقم الهاتف</label>
-   <input name="phone" type="tel" required>
-   <label>الولاية</label>
-   <select name="wilaya" required>
-    <option value="">اختر الولاية</option>
-    <option>أدرار</option><option>الشلف</option><option>الأغواط</option>
-    <option>أم البواقي</option><option>باتنة</option><option>بجاية</option>
-    <option>بسكرة</option><option>بشار</option><option>البليدة</option>
-    <option>البويرة</option><option>تمنراست</option><option>تبسة</option>
-    <option>تلمسان</option><option>تيارت</option><option>تيزي وزو</option>
-    <option>الجزائر</option><option>الجلفة</option><option>جيجل</option>
-    <option>سطيف</option><option>سعيدة</option><option>سكيكدة</option>
-    <option>عنابة</option><option>قالمة</option><option>قسنطينة</option>
-    <option>المدية</option><option>مستغانم</option><option>المسيلة</option>
-    <option>معسكر</option><option>ورقلة</option><option>وهران</option>
-    <option>البيض</option><option>إليزي</option><option>برج بوعريريج</option>
-    <option>بومرداس</option><option>الطارف</option><option>تندوف</option>
-    <option>تيسمسيلت</option><option>الوادي</option><option>خنشلة</option>
-    <option>سوق أهراس</option><option>تيبازة</option><option>ميلة</option>
-    <option>عين الدفلى</option><option>النعامة</option><option>عين تموشنت</option>
-    <option>غرداية</option><option>غليزان</option>
-   </select>
-   <label>العنوان بالتفصيل</label>
-   <textarea name="address" required></textarea>
-   <label>المنتج</label>
-   <input name="product" id="orderProduct" readonly required>
-   <label>الكمية</label>
-   <input name="quantity" type="number" min="1" value="1" required>
-   <button type="submit">تأكيد الطلب</button>
-   <button type="button" class="secondary" onclick="home()">رجوع</button>
+  <h3>تسجيل محل تجاري جديد</h3>
+  <div class="notice">بعد التسجيل، يظهر طلبك في لوحة المدير للمراجعة. لن يظهر محلك للزبائن إلا بعد الموافقة.</div>
+  <form id="sellerForm" class="formgrid">
+   <div class="field"><label>اسم المحل</label><input name="shop" required placeholder="اسم المحل التجاري"></div>
+   <div class="field"><label>اسم البائع</label><input name="owner" required></div>
+   <div class="field"><label>رقم الهاتف</label><input name="phone" required type="tel"></div>
+   <div class="field"><label>نوع النشاط</label><select name="type"><option>ملابس رجالية</option><option>أحذية</option><option>ساعات</option><option>إكسسوارات</option><option>عطور</option><option>متنوع</option></select></div>
+   <div class="field full"><button class="action gold" type="submit">إرسال طلب التسجيل</button></div>
   </form>
-  <p id="orderMessage"></p>
  </div>
-</main>
-
-<main class="container hidden" id="adminPage">
  <div class="panel">
-  <h2>لوحة تحكم المدير</h2>
-  <div id="loginBox">
-   <label>كلمة مرور المدير التجريبية</label>
-   <input id="adminPassword" type="password" placeholder="كلمة المرور">
-   <button onclick="login()">دخول</button>
+  <h3>دخول لوحة البائع</h3>
+  <div class="field">
+   <label>اختر محلك المسجل</label>
+   <select id="sellerSelect"></select>
   </div>
-
-  <div id="adminArea" class="hidden">
-   <h3>إضافة منتج أو تعديله</h3>
-   <label>اسم المنتج</label>
-   <input id="pname" placeholder="مثلاً: هاتف ذكي">
-   <label>السعر بالدينار</label>
-   <input id="pprice" type="number" placeholder="السعر">
-   <label>رابط صورة المنتج</label>
-   <input id="pimage" placeholder="https://example.com/image.jpg">
-   <label>وصف المنتج</label>
-   <textarea id="pdesc" placeholder="اكتب وصف المنتج"></textarea>
-   <button onclick="saveProduct()">حفظ المنتج</button>
-   <button class="secondary" onclick="cancelEdit()">إلغاء التعديل</button>
-
-   <h3>إدارة المنتجات</h3>
-   <div id="adminProducts"></div>
-
-   <h3>إدارة الإعلانات</h3>
-   <input id="newAd" placeholder="اكتب نص الإعلان">
-   <button onclick="saveAd()">تحديث الإعلان</button>
-
-   <h3>الطلبات المسجلة على هذا الجهاز</h3>
-   <div id="orders"></div>
-   <button class="secondary" onclick="logout()">تسجيل الخروج</button>
+  <button class="action" style="margin-top:12px" onclick="openSellerDashboard()">دخول لوحة البائع</button>
+  <div id="sellerDashboard" class="hidden">
+   <hr style="border:0;border-top:1px solid #eee;margin:20px 0">
+   <h3 id="sellerWelcome"></h3>
+   <div class="notice">يمكنك إضافة منتجاتك. ستبقى المنتجات قيد المراجعة إلى أن يوافق عليها المدير.</div>
+   <form id="productForm" class="formgrid">
+    <input type="hidden" name="sellerId" id="productSellerId">
+    <div class="field"><label>اسم المنتج</label><input name="name" required></div>
+    <div class="field"><label>السعر بالدينار الجزائري</label><input name="price" type="number" min="1" required></div>
+    <div class="field"><label>التصنيف</label><select name="category"><option>ملابس رجالية</option><option>أحذية</option><option>ساعات</option><option>إكسسوارات</option><option>عطور</option></select></div>
+    <div class="field"><label>رابط صورة المنتج</label><input name="image" type="url" placeholder="https://..."></div>
+    <div class="field full"><label>وصف المنتج</label><textarea name="description"></textarea></div>
+    <div class="field full"><button class="action gold">إضافة المنتج للمراجعة</button></div>
+   </form>
+   <h3>منتجات محلك</h3>
+   <div id="sellerProducts"></div>
+   <h3>طلبات محلك</h3>
+   <div id="sellerOrders"></div>
   </div>
  </div>
-</main>
+</section>
 
-<main class="container hidden" id="adsPage">
- <div class="panel">
-  <h2>إعلانات GM STORE</h2>
-  <p id="adsContent">عروض ومنتجات جديدة في انتظاركم.</p>
+<section id="cart" class="hidden">
+ <div class="section-title"><h2>سلة المشتريات</h2></div>
+ <div id="cartItems"></div>
+ <div id="checkoutPanel" class="panel hidden">
+  <h3>إتمام الطلب</h3>
+  <div class="notice">املأ معلوماتك لإرسال الطلب إلى إدارة سوق الرحبة. سيتم التواصل معك لتأكيد التفاصيل.</div>
+  <form id="checkoutForm" class="formgrid">
+   <div class="field"><label>الاسم واللقب</label><input name="customer" required></div>
+   <div class="field"><label>رقم الهاتف</label><input name="phone" type="tel" required></div>
+   <div class="field"><label>الولاية</label><input name="wilaya" required value="قسنطينة"></div>
+   <div class="field"><label>البلدية</label><input name="city" required></div>
+   <div class="field full"><label>العنوان بالتفصيل</label><textarea name="address" required></textarea></div>
+   <div class="field"><label>طريقة الدفع</label><select name="payment"><option>الدفع عند الاستلام</option></select></div>
+   <div class="field full"><button class="action gold">تأكيد وإرسال الطلب</button></div>
+  </form>
  </div>
+</section>
+
+<section id="admin" class="hidden">
+ <div class="section-title"><h2>لوحة المدير المركزي</h2><span class="small">الإدارة العامة لسوق الرحبة</span></div>
+ <div class="notice">هذه لوحة تجريبية توضح صلاحيات المدير. في النسخة الحقيقية يجب أن تكون محمية بحساب مدير آمن، مع قاعدة بيانات مركزية.</div>
+ <div class="stats">
+  <div class="stat">البائعون<strong id="statSellers">0</strong></div>
+  <div class="stat">المنتجات<strong id="statProducts">0</strong></div>
+  <div class="stat">الطلبات<strong id="statOrders">0</strong></div>
+  <div class="stat">إجمالي الطلبات<strong id="statSales">0 دج</strong></div>
+ </div>
+ <div class="tabs">
+  <button class="active" onclick="adminTab('sellers',this)">البائعون</button>
+  <button onclick="adminTab('products',this)">المنتجات</button>
+  <button onclick="adminTab('orders',this)">الطلبات</button>
+  <button onclick="adminTab('settings',this)">إعدادات المنصة</button>
+ </div>
+ <div id="adminSellers" class="panel"></div>
+ <div id="adminProducts" class="panel hidden"></div>
+ <div id="adminOrders" class="panel hidden"></div>
+ <div id="adminSettings" class="panel hidden">
+  <h3>إعدادات عمولة المنصة</h3>
+  <div class="field" style="max-width:300px">
+   <label>نسبة عمولة سوق الرحبة (%)</label>
+   <input id="commission" type="number" min="0" max="100">
+  </div>
+  <button class="action gold" style="margin-top:12px" onclick="saveSettings()">حفظ العمولة</button>
+  <p class="small">العمولة المعروضة تقديرية لحسابات الإدارة، ولا يتم تحصيل أي أموال فعلياً في هذا الإصدار التجريبي.</p>
+  <hr>
+  <h3>بيانات التجربة</h3>
+  <button class="action red" onclick="resetDemo()">إعادة ضبط بيانات التجربة</button>
+ </div>
+</section>
 </main>
 
 <footer>
- <h3>GM <span style="color:#168cff">STORE</span></h3>
- <p>متجرك الإلكتروني — الجزائر</p>
- <p>جميع الحقوق محفوظة © 2026</p>
+ <strong>سوق الرحبة | RAHBA MARKET</strong>
+ <p>منصة تجارية تجمع البائع والمشتري في قسنطينة</p>
+ <span class="small">© 2026 RAHBA MARKET — جميع الحقوق محفوظة</span>
 </footer>
-<div id="notice"></div>
 
 <script>
-const initialProducts=[
- {id:1,name:"هاتف ذكي",price:45000,image:"https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=700",desc:"هاتف ذكي بتصميم عصري ومميزات رائعة."},
- {id:2,name:"حاسوب محمول",price:125000,image:"https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=700",desc:"حاسوب مناسب للعمل والدراسة."},
- {id:3,name:"سماعات لاسلكية",price:6500,image:"https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=700",desc:"سماعات للاستماع إلى الموسيقى."}
-];
-let products=read("gm_products",initialProducts);
-let orders=read("gm_orders",[]);
-let editId=null;
-let currentProduct=null;
-let french=false;
+const KEY='rahba_market_demo_v1';
+let data=loadData();
+let cart=[];
+let currentSeller=null;
 
-function read(key,fallback){
+function loadData(){
  try{
-  const value=localStorage.getItem(key);
-  return value?JSON.parse(value):fallback;
- }catch(e){return fallback;}
+  return JSON.parse(localStorage.getItem(KEY))||{sellers:[],products:[],orders:[],commission:5};
+ }catch(e){return {sellers:[],products:[],orders:[],commission:5};}
 }
-function persist(){
- try{
-  localStorage.setItem("gm_products",JSON.stringify(products));
-  localStorage.setItem("gm_orders",JSON.stringify(orders));
- }catch(e){alert("مساحة التخزين على الجهاز غير كافية.");}
+function save(){
+ localStorage.setItem(KEY,JSON.stringify(data));
 }
-function safe(value){
- return String(value??"").replace(/[&<>"']/g,c=>({
- "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
- }[c]));
+function id(){return Date.now().toString(36)+Math.random().toString(36).slice(2,7)}
+function money(n){return Number(n||0).toLocaleString('fr-DZ')+' دج'}
+function safe(s){
+ return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 }
-function notify(message){
- const el=document.getElementById("notice");
- el.textContent=message;
- el.style.display="block";
- setTimeout(()=>el.style.display="none",2500);
+function showPage(page){
+ ['home','shops','seller','cart','admin'].forEach(p=>document.getElementById(p).classList.toggle('hidden',p!==page));
+ document.getElementById('hero').classList.toggle('hidden',page!=='home');
+ if(page==='home')renderProducts('homeProducts');
+ if(page==='shops')renderProducts('shopProducts');
+ if(page==='seller')refreshSellerSelect();
+ if(page==='cart')renderCart();
+ if(page==='admin')renderAdmin();
+ window.scrollTo({top:0,behavior:'smooth'});
 }
-function hidePages(){
- ["mainPage","detailPage","orderPage","adminPage","adsPage"].forEach(id=>
- document.getElementById(id).classList.add("hidden"));
+function approvedProducts(){
+ return data.products.filter(p=>p.status==='approved');
 }
-function home(){
- hidePages();
- document.getElementById("mainPage").classList.remove("hidden");
- window.scrollTo(0,0);
-}
-function scrollProducts(){
- home();
- document.getElementById("productsTitle").scrollIntoView({behavior:"smooth"});
-}
-function showAdmin(){
- hidePages();
- document.getElementById("adminPage").classList.remove("hidden");
- window.scrollTo(0,0);
-}
-function showAds(){
- hidePages();
- document.getElementById("adsPage").classList.remove("hidden");
- window.scrollTo(0,0);
-}
-function render(){
- const area=document.getElementById("products");
- area.innerHTML=products.map(p=>`
- <article class="product">
-  <img src="${safe(p.image)}" alt="${safe(p.name)}"
-   onerror="this.src='https://placehold.co/600x400/101d30/ffffff?text=GM+STORE'">
-  <div class="info">
-   <h3>${safe(p.name)}</h3>
-   <div class="price">${Number(p.price).toLocaleString("fr-FR")} دج</div>
-   <p class="muted">${safe(p.desc)}</p>
-   <div class="actions">
-    <button onclick="details(${Number(p.id)})">التفاصيل</button>
-    <button onclick="buy(${Number(p.id)})">اطلب الآن</button>
+function renderProducts(target,query=''){
+ const box=document.getElementById(target);
+ const cat=document.getElementById(target==='homeProducts'?'homeCategory':'shopCategory')?.value||'';
+ const q=query.trim().toLowerCase();
+ const items=approvedProducts().filter(p=>{
+  const seller=data.sellers.find(s=>s.id===p.sellerId);
+  return (!cat||p.category===cat)&&(!q||(p.name+' '+p.category+' '+(seller?.shop||'')).toLowerCase().includes(q));
+ });
+ if(!items.length){box.innerHTML='<div class="empty">لا توجد منتجات معتمدة حالياً. عد لاحقاً لاكتشاف الجديد.</div>';return;}
+ box.innerHTML=items.map(p=>{
+  const seller=data.sellers.find(s=>s.id===p.sellerId);
+  return `<article class="card">
+   <div class="product-img">${p.image?`<img src="${safe(p.image)}" alt="${safe(p.name)}" onerror="this.style.display='none'">`:'<span class="placeholder">◇</span>'}</div>
+   <div class="cardbody">
+    <h3>${safe(p.name)}</h3>
+    <div class="small">${safe(p.category)} · ${safe(seller?.shop||'متجر')}</div>
+    <p class="small">${safe(p.description||'')}</p>
+    <div class="price">${money(p.price)}</div>
+    <button class="action gold" onclick="addToCart('${p.id}')">أضف إلى السلة</button>
    </div>
-  </div>
- </article>`).join("")||"<p>لا توجد منتجات حالياً.</p>";
+  </article>`;
+ }).join('');
 }
-function details(id){
- const p=products.find(x=>x.id===id);
+function addToCart(productId){
+ const p=approvedProducts().find(x=>x.id===productId);
  if(!p)return;
- currentProduct=id;
- hidePages();
- const box=document.getElementById("detailPage");
- box.classList.remove("hidden");
- document.getElementById("detailContent").innerHTML=`
-  <img src="${safe(p.image)}" style="width:100%;max-height:350px;object-fit:contain"
-   onerror="this.src='https://placehold.co/600x400/101d30/ffffff?text=GM+STORE'">
-  <h2>${safe(p.name)}</h2>
-  <div class="price">${Number(p.price).toLocaleString("fr-FR")} دج</div>
-  <p>${safe(p.desc)}</p>
-  <button onclick="buy(${Number(p.id)})">اطلب الآن</button>
-  <button class="secondary" onclick="home()">رجوع</button>`;
+ const found=cart.find(x=>x.id===productId);
+ if(found)found.qty++;else cart.push({id:p.id,qty:1});
+ updateCartCount();
+ alert('تمت إضافة المنتج إلى السلة');
 }
-function buy(id){
- const p=products.find(x=>x.id===id);
- if(!p)return;
- currentProduct=id;
- document.getElementById("orderProduct").value=p.name;
- hidePages();
- document.getElementById("orderPage").classList.remove("hidden");
- window.scrollTo(0,0);
+function updateCartCount(){
+ document.getElementById('cartCount').textContent=cart.reduce((n,x)=>n+x.qty,0);
 }
-document.getElementById("orderForm").addEventListener("submit",function(e){
+function renderCart(){
+ const box=document.getElementById('cartItems');
+ const rows=cart.map(item=>{
+  const p=approvedProducts().find(x=>x.id===item.id);
+  return p?{...item,product:p}:null;
+ }).filter(Boolean);
+ if(!rows.length){
+  box.innerHTML='<div class="empty">سلة المشتريات فارغة.</div>';
+  document.getElementById('checkoutPanel').classList.add('hidden');return;
+ }
+ const total=rows.reduce((n,x)=>n+x.product.price*x.qty,0);
+ box.innerHTML=`<div class="panel"><div class="tablewrap"><table><tr><th>المنتج</th><th>السعر</th><th>الكمية</th><th>المجموع</th><th></th></tr>
+ ${rows.map(x=>`<tr><td>${safe(x.product.name)}</td><td>${money(x.product.price)}</td><td>${x.qty}</td><td>${money(x.product.price*x.qty)}</td><td><button class="action red" onclick="removeCart('${x.id}')">حذف</button></td></tr>`).join('')}
+ </table></div><h3>الإجمالي: ${money(total)}</h3></div>`;
+ document.getElementById('checkoutPanel').classList.remove('hidden');
+}
+function removeCart(pid){cart=cart.filter(x=>x.id!==pid);updateCartCount();renderCart();}
+document.getElementById('sellerForm').addEventListener('submit',e=>{
  e.preventDefault();
- const data=Object.fromEntries(new FormData(this).entries());
- data.date=new Date().toLocaleString("ar-DZ");
- data.id=Date.now();
- orders.push(data);
- persist();
- document.getElementById("orderMessage").textContent=
- "تم تسجيل الطلب على هذا الجهاز التجريبي.";
- notify("تم تسجيل الطلب التجريبي");
- this.reset();
+ const f=new FormData(e.target);
+ const seller={id:id(),shop:f.get('shop'),owner:f.get('owner'),phone:f.get('phone'),type:f.get('type'),status:'pending',created:new Date().toLocaleDateString('ar-DZ')};
+ data.sellers.push(seller);save();e.target.reset();refreshSellerSelect();
+ alert('تم إرسال طلب تسجيل محلك إلى المدير للمراجعة.');
 });
-function login(){
- if(document.getElementById("adminPassword").value==="GM2026!"){
-  document.getElementById("loginBox").classList.add("hidden");
-  document.getElementById("adminArea").classList.remove("hidden");
-  adminRender();
-  notify("تم فتح لوحة الإدارة");
- }else{
-  alert("كلمة المرور غير صحيحة");
- }
+function refreshSellerSelect(){
+ const sel=document.getElementById('sellerSelect');
+ const list=data.sellers.filter(s=>s.status==='approved');
+ sel.innerHTML='<option value="">اختر محلك</option>'+list.map(s=>`<option value="${s.id}">${safe(s.shop)}</option>`).join('');
 }
-function logout(){
- document.getElementById("adminArea").classList.add("hidden");
- document.getElementById("loginBox").classList.remove("hidden");
- document.getElementById("adminPassword").value="";
+function openSellerDashboard(){
+ const sid=document.getElementById('sellerSelect').value;
+ const s=data.sellers.find(x=>x.id===sid&&x.status==='approved');
+ if(!s){alert('يجب اختيار محل تمت الموافقة عليه من المدير.');return;}
+ currentSeller=s.id;
+ document.getElementById('sellerDashboard').classList.remove('hidden');
+ document.getElementById('sellerWelcome').textContent='مرحباً، '+s.shop;
+ document.getElementById('productSellerId').value=s.id;
+ renderSellerData();
 }
-function saveProduct(){
- const name=document.getElementById("pname").value.trim();
- const price=Number(document.getElementById("pprice").value);
- const image=document.getElementById("pimage").value.trim();
- const desc=document.getElementById("pdesc").value.trim();
- if(!name||!Number.isFinite(price)||price<=0){
-  alert("أدخل اسم المنتج وسعراً صحيحاً.");
-  return;
- }
- const p={id:editId??Date.now(),name,price,image,desc};
- if(editId===null)products.push(p);
- else products=products.map(x=>x.id===editId?p:x);
- persist();
- cancelEdit();
- render();
- adminRender();
- notify("تم حفظ المنتج");
+document.getElementById('productForm').addEventListener('submit',e=>{
+ e.preventDefault();
+ const f=new FormData(e.target);
+ const p={id:id(),sellerId:f.get('sellerId'),name:f.get('name'),price:Number(f.get('price')),category:f.get('category'),image:f.get('image'),description:f.get('description'),status:'pending'};
+ data.products.push(p);save();e.target.reset();
+ document.getElementById('productSellerId').value=currentSeller;
+ renderSellerData();
+ alert('تم إرسال المنتج إلى المدير للمراجعة.');
+});
+function renderSellerData(){
+ const ps=data.products.filter(p=>p.sellerId===currentSeller);
+ document.getElementById('sellerProducts').innerHTML=ps.length?`<div class="tablewrap"><table><tr><th>المنتج</th><th>السعر</th><th>الحالة</th></tr>${ps.map(p=>`<tr><td>${safe(p.name)}</td><td>${money(p.price)}</td><td><span class="status">${p.status==='approved'?'معتمد':'قيد المراجعة'}</span></td></tr>`).join('')}</table></div>`:'<p class="small">لم تضف منتجات بعد.</p>';
+ const os=data.orders.filter(o=>o.items.some(i=>i.sellerId===currentSeller));
+ document.getElementById('sellerOrders').innerHTML=os.length?`<div class="tablewrap"><table><tr><th>رقم الطلب</th><th>الزبون</th><th>المنتجات</th><th>الحالة</th></tr>${os.map(o=>`<tr><td>${safe(o.id)}</td><td>${safe(o.customer)}</td><td>${o.items.filter(i=>i.sellerId===currentSeller).map(i=>safe(i.name)).join('، ')}</td><td>${safe(o.status)}</td></tr>`).join('')}</table></div>`:'<p class="small">لا توجد طلبات بعد.</p>';
 }
-function editProduct(id){
- const p=products.find(x=>x.id===id);
- if(!p)return;
- editId=id;
- document.getElementById("pname").value=p.name;
- document.getElementById("pprice").value=p.price;
- document.getElementById("pimage").value=p.image;
- document.getElementById("pdesc").value=p.desc;
- window.scrollTo(0,0);
+document.getElementById('checkoutForm').addEventListener('submit',e=>{
+ e.preventDefault();
+ const f=new FormData(e.target);
+ const items=cart.map(c=>{
+  const p=approvedProducts().find(x=>x.id===c.id);
+  return p?{productId:p.id,sellerId:p.sellerId,name:p.name,price:p.price,qty:c.qty}:null;
+ }).filter(Boolean);
+ if(!items.length){alert('السلة فارغة.');return;}
+ const order={id:'RH-'+Date.now().toString().slice(-7),customer:f.get('customer'),phone:f.get('phone'),wilaya:f.get('wilaya'),city:f.get('city'),address:f.get('address'),payment:f.get('payment'),items,total:items.reduce((n,x)=>n+x.price*x.qty,0),status:'طلب جديد',created:new Date().toLocaleString('ar-DZ')};
+ data.orders.push(order);save();cart=[];updateCartCount();e.target.reset();
+ alert('تم تسجيل طلبك في هذه النسخة التجريبية. رقم الطلب: '+order.id);
+ showPage('home');
+});
+function adminTab(tab,btn){
+ ['sellers','products','orders','settings'].forEach(x=>document.getElementById('admin'+x[0].toUpperCase()+x.slice(1)).classList.toggle('hidden',x!==tab));
+ document.querySelectorAll('.tabs button').forEach(b=>b.classList.remove('active'));
+ btn.classList.add('active');
 }
-function cancelEdit(){
- editId=null;
- ["pname","pprice","pimage","pdesc"].forEach(id=>
- document.getElementById(id).value="");
+function renderAdmin(){
+ document.getElementById('statSellers').textContent=data.sellers.length;
+ document.getElementById('statProducts').textContent=data.products.length;
+ document.getElementById('statOrders').textContent=data.orders.length;
+ document.getElementById('statSales').textContent=money(data.orders.reduce((n,o)=>n+o.total,0));
+ document.getElementById('commission').value=data.commission;
+ document.getElementById('adminSellers').innerHTML='<h3>طلبات البائعين والمحلات</h3>'+(data.sellers.length?`<div class="tablewrap"><table><tr><th>المحل</th><th>المسؤول</th><th>الهاتف</th><th>النشاط</th><th>الحالة</th><th>الإجراء</th></tr>${data.sellers.map(s=>`<tr><td>${safe(s.shop)}</td><td>${safe(s.owner)}</td><td>${safe(s.phone)}</td><td>${safe(s.type)}</td><td>${s.status==='approved'?'معتمد':'قيد المراجعة'}</td><td>${s.status==='approved'?'<span class="status">تمت الموافقة</span>':`<button class="action green" onclick="approveSeller('${s.id}')">قبول</button>`} <button class="action red" onclick="deleteSeller('${s.id}')">حذف</button></td></tr>`).join('')}</table></div>`:'<p class="small">لا توجد طلبات بائعين.</p>');
+ document.getElementById('adminProducts').innerHTML='<h3>مراجعة المنتجات</h3>'+(data.products.length?`<div class="tablewrap"><table><tr><th>المنتج</th><th>المحل</th><th>السعر</th><th>الحالة</th><th>الإجراء</th></tr>${data.products.map(p=>{const s=data.sellers.find(x=>x.id===p.sellerId);return `<tr><td>${safe(p.name)}</td><td>${safe(s?.shop||'')}</td><td>${money(p.price)}</td><td>${p.status==='approved'?'منشور':'قيد المراجعة'}</td><td>${p.status!=='approved'?`<button class="action green" onclick="approveProduct('${p.id}')">نشر المنتج</button>`:''} <button class="action red" onclick="deleteProduct('${p.id}')">حذف</button></td></tr>`}).join('')}</table></div>`:'<p class="small">لا توجد منتجات.</p>');
+ document.getElementById('adminOrders').innerHTML='<h3>إدارة الطلبات</h3>'+(data.orders.length?`<div class="tablewrap"><table><tr><th>رقم الطلب</th><th>الزبون</th><th>الهاتف</th><th>الولاية</th><th>الإجمالي</th><th>الحالة</th><th>تحديث</th></tr>${data.orders.map(o=>`<tr><td>${safe(o.id)}</td><td>${safe(o.customer)}</td><td>${safe(o.phone)}</td><td>${safe(o.wilaya)}</td><td>${money(o.total)}</td><td>${safe(o.status)}</td><td><select onchange="updateOrder('${o.id}',this.value)">${['طلب جديد','تم التأكيد','قيد التجهيز','خرج للتوصيل','تم التسليم','ملغي'].map(x=>`<option ${o.status===x?'selected':''}>${x}</option>`).join('')}</select></td></tr>`).join('')}</table></div>`:'<p class="small">لا توجد طلبات حتى الآن.</p>');
 }
-function deleteProduct(id){
- if(!confirm("هل تريد حذف هذا المنتج؟"))return;
- products=products.filter(p=>p.id!==id);
- persist();render();adminRender();
- notify("تم حذف المنتج");
-}
-function adminRender(){
- document.getElementById("adminProducts").innerHTML=products.map(p=>`
-  <div class="panel">
-   <b>${safe(p.name)}</b> — ${Number(p.price).toLocaleString("fr-FR")} دج
-   <p><button onclick="editProduct(${Number(p.id)})">تعديل</button>
-   <button onclick="deleteProduct(${Number(p.id)})">حذف</button></p>
-  </div>`).join("")||"لا توجد منتجات.";
- document.getElementById("orders").innerHTML=orders.map(o=>`
-  <div class="panel">
-   <b>${safe(o.first)} ${safe(o.last)}</b>
-   <p>الهاتف: ${safe(o.phone)}</p>
-   <p>الولاية: ${safe(o.wilaya)}</p>
-   <p>المنتج: ${safe(o.product)} — الكمية: ${safe(o.quantity)}</p>
-   <p>العنوان: ${safe(o.address)}</p>
-   <small>${safe(o.date)}</small>
-  </div>`).join("")||"لا توجد طلبات.";
-}
-function saveAd(){
- const text=document.getElementById("newAd").value.trim();
- if(!text)return;
- localStorage.setItem("gm_ad",text);
- document.getElementById("adText").textContent=text;
- document.getElementById("adsContent").textContent=text;
- notify("تم تحديث الإعلان على هذا الجهاز");
-}
-function toggleLanguage(){
- french=!french;
- document.documentElement.lang=french?"fr":"ar";
- document.documentElement.dir=french?"ltr":"rtl";
- document.getElementById("langBtn").textContent=french?"العربية":"Français";
- document.getElementById("heroTitle").innerHTML=french?
- 'Bienvenue chez <span>GM STORE</span>':'مرحباً بك في <span>GM STORE</span>';
- document.getElementById("heroText").textContent=french?
- "Découvrez nos produits et offres":"اكتشف أحدث المنتجات والعروض بأسعار مميزة";
- document.getElementById("shopBtn").textContent=french?"Acheter":"تسوق الآن";
- document.getElementById("productsTitle").textContent=french?"Nouveaux produits":"أحدث المنتجات";
-}
-const oldAd=localStorage.getItem("gm_ad");
-if(oldAd){
- document.getElementById("adText").textContent=oldAd;
- document.getElementById("adsContent").textContent=oldAd;
-}
-render();
+function approveSeller(sid){const s=data.sellers.find(x=>x.id===sid);if(s){s.status='approved';save();renderAdmin();refreshSellerSelect();}}
+function deleteSeller(sid){if(!confirm('هل تريد حذف طلب هذا البائع؟'))return;data.sellers=data.sellers.filter(s=>s.id!==sid);data.products=data.products.filter(p=>p.sellerId!==sid);save();renderAdmin();refreshSellerSelect();}
+function approveProduct(pid){const p=data.products.find(x=>x.id===pid);if(p){p.status='approved';save();renderAdmin();}}
+function deleteProduct(pid){if(!confirm('هل تريد حذف هذا المنتج؟'))return;data.products=data.products.filter(p=>p.id!==pid);save();renderAdmin();}
+function updateOrder(oid,status){const o=data.orders.find(x=>x.id===oid);if(o){o.status=status;save();renderAdmin();}}
+function saveSettings(){data.commission=Math.max(0,Math.min(100,Number(document.getElementById('commission').value)||0));save();alert('تم حفظ نسبة العمولة التجريبية.');}
+function resetDemo(){if(!confirm('سيتم حذف جميع بيانات التجربة من هذا المتصفح. هل أنت متأكد؟'))return;localStorage.removeItem(KEY);data=loadData();cart=[];updateCartCount();renderAdmin();refreshSellerSelect();alert('تمت إعادة ضبط بيانات التجربة.');}
+renderProducts('homeProducts');
+refreshSellerSelect();
+updateCartCount();
 </script>
 </body>
 </html>
