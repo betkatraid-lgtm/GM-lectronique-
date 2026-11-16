@@ -3,162 +3,128 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>سوق الرحبة | RAHBA MARKET</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PIAS PRO | قطع غيار السيارات</title>
 <style>
 *{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;background:#f5f5f5;color:#222}
-header{background:#111;color:#d8b45a;padding:22px;text-align:center}
-header h1{margin:0;font-size:29px}
-header p{margin:8px 0 0;color:white}
-nav{display:flex;justify-content:center;flex-wrap:wrap;background:#222;padding:12px;gap:10px}
-button{border:0;padding:11px 16px;border-radius:6px;cursor:pointer;font-weight:bold}
-nav button{background:#d8b45a;color:#111}
-.hero{background:#181818;color:white;text-align:center;padding:55px 15px}
-.hero h2{color:#e4c36d;font-size:28px}
-.container{max-width:1100px;margin:auto;padding:20px}
-h2.section{color:#9b7628;border-bottom:2px solid #d8b45a;padding-bottom:10px}
-.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:15px}
-.card{background:white;border-radius:10px;overflow:hidden;box-shadow:0 2px 8px #ddd;padding:12px}
-.card img{width:100%;height:155px;object-fit:cover;border-radius:7px}
-.card h3{margin:10px 0}
-.price{color:#98721e;font-weight:bold}
-.action{background:#171717;color:#e4c36d;width:100%;margin-top:8px}
-input,textarea,select{width:100%;padding:12px;margin:7px 0;border:1px solid #ccc;border-radius:6px}
-.panel{background:white;padding:18px;border-radius:10px;margin:15px 0}
-.gold{background:#d8b45a;color:#111}
-footer{text-align:center;background:#111;color:white;padding:25px;margin-top:30px}
+body{margin:0;background:#101010;color:white;font-family:Arial,sans-serif}
+header{background:#181818;padding:18px 5%;display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid #e21b2d}
+.logo{font-size:27px;font-weight:900;color:#f02738}
+.logo span{color:white}
+nav a{color:white;text-decoration:none;margin:0 8px;font-size:14px}
+.hero{padding:55px 7%;background:linear-gradient(90deg,#170608,#111);text-align:center}
+.hero h1{font-size:36px;margin:10px}
+.hero h1 span{color:#ed2638}
+.hero p{color:#bbb}
+.btn{display:inline-block;background:#e51d30;color:white;padding:12px 22px;border:0;border-radius:6px;text-decoration:none;cursor:pointer;margin-top:12px}
+section{padding:30px 6%}
+h2{border-right:4px solid #e51d30;padding-right:12px}
+.search{width:100%;padding:14px;border:1px solid #444;background:#202020;color:white;border-radius:7px;margin:10px 0}
+.cars,.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:15px}
+.card{background:#1d1d1d;border:1px solid #333;border-radius:10px;overflow:hidden;text-align:center;padding-bottom:15px}
+.card img{width:100%;height:130px;object-fit:cover;background:#292929}
+.card h3{font-size:16px}
+.price{color:#ff4857;font-weight:bold}
+.card button{background:#d91f31;color:white;border:0;padding:10px 14px;border-radius:5px;cursor:pointer}
+.about{background:#1b1b1b;text-align:center}
+footer{background:#080808;text-align:center;padding:25px;color:#aaa}
+small{color:#aaa}
 </style>
 </head>
 <body>
-
 <header>
-<h1>RAHBA MARKET</h1>
-<p>سوق الرحبة — وجهتك التجارية في قسنطينة</p>
+ <div class="logo">PIAS <span>PRO</span></div>
+ <nav>
+  <a href="#cars">السيارات</a>
+  <a href="#products">المنتجات</a>
+  <a href="#contact">اتصل بنا</a>
+ </nav>
 </header>
 
-<nav>
-<button onclick="show('home')">الرئيسية</button>
-<button onclick="show('products')">المنتجات</button>
-<button onclick="show('seller')">سجّل متجرك</button>
-<button onclick="show('cart')">سلة المشتريات</button>
-<button onclick="show('admin')">الإدارة</button>
-</nav>
-
-<section class="hero">
-<h2>مرحباً بكم في سوق الرحبة</h2>
-<p>اكتشف المحلات والمنتجات وتسوق بسهولة</p>
-<button class="gold" onclick="show('products')">اكتشف المنتجات</button>
-</section>
-
-<main class="container">
-<section id="home">
-<h2 class="section">أهلاً بك في سوق الرحبة</h2>
-<p>منصة تجمع المحلات التجارية والزبائن في مكان واحد.</p>
-</section>
-
-<section id="products" style="display:none">
-<h2 class="section">المنتجات</h2>
-<div class="products" id="productList"></div>
-</section>
-
-<section id="seller" style="display:none">
-<h2 class="section">تسجيل متجر جديد</h2>
-<div class="panel">
-<input id="shopName" placeholder="اسم المحل">
-<input id="owner" placeholder="اسم صاحب المحل">
-<input id="phone" placeholder="رقم الهاتف">
-<input id="shopType" placeholder="نوع النشاط التجاري">
-<button class="gold" onclick="registerShop()">إرسال طلب التسجيل</button>
+<div class="hero">
+ <h1>PIAS <span>PRO</span></h1>
+ <h2 style="border:0">كل ما تحتاجه سيارتك في مكان واحد</h2>
+ <p>قطع غيار • محركات • إكسسوارات • أدوات ميكانيك</p>
+ <a class="btn" href="#products">اكتشف المنتجات</a>
 </div>
+
+<section id="cars">
+ <h2>اختر سيارتك</h2>
+ <div class="cars">
+  <div class="card">
+   <img src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=600" alt="سيارة Symbol">
+   <h3>Renault Symbol</h3>
+   <small>قطع غيار وإكسسوارات</small>
+  </div>
+  <div class="card">
+   <img src="https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=600" alt="سيارة كلاسيكية">
+   <h3>Renault 4</h3>
+   <small>قطع غيار وإكسسوارات</small>
+  </div>
+ </div>
 </section>
 
-<section id="cart" style="display:none">
-<h2 class="section">سلة المشتريات</h2>
-<div class="panel" id="cartList">السلة فارغة</div>
-<input id="customer" placeholder="اسم الزبون">
-<input id="customerPhone" placeholder="رقم الهاتف">
-<input id="address" placeholder="عنوان التوصيل">
-<button class="gold" onclick="order()">تأكيد الطلب</button>
+<section id="products">
+ <h2>منتجاتنا</h2>
+ <input class="search" id="search" placeholder="ابحث عن قطعة غيار..." oninput="filterProducts()">
+ <div class="products" id="catalog"></div>
 </section>
 
-<section id="admin" style="display:none">
-<h2 class="section">لوحة إدارة سوق الرحبة</h2>
-<div class="panel">
-<h3>إضافة منتج</h3>
-<input id="newName" placeholder="اسم المنتج">
-<input id="newPrice" type="number" placeholder="السعر بالدينار">
-<input id="newImage" placeholder="رابط صورة المنتج">
-<button class="gold" onclick="addProduct()">إضافة المنتج</button>
-</div>
-<div class="panel">
-<h3>طلبات المحلات</h3>
-<div id="shopRequests"></div>
-</div>
-<div class="panel">
-<h3>الطلبات</h3>
-<div id="orders"></div>
-</div>
+<section class="about">
+ <h2>اطلب قطعة غير متوفرة</h2>
+ <p>أرسل اسم القطعة ونوع السيارة وسنتواصل معك.</p>
+ <input class="search" id="car" placeholder="نوع السيارة والموديل">
+ <input class="search" id="part" placeholder="اسم القطعة المطلوبة">
+ <button class="btn" onclick="requestPart()">إرسال الطلب عبر واتساب</button>
 </section>
-</main>
 
-<footer>
-<h3>RAHBA MARKET</h3>
-<p>سوق الرحبة — قسنطينة، الجزائر</p>
-<p>جميع الحقوق محفوظة © 2026</p>
-</footer>
+<section id="contact">
+ <h2>تواصل معنا</h2>
+ <p>PIAS PRO — YOUR AUTOMOTIVE PARTNER</p>
+ <p>خدمة طلبات قطع الغيار في الجزائر</p>
+</section>
+
+<footer>© 2026 PIAS PRO — جميع الحقوق محفوظة</footer>
 
 <script>
-let products=JSON.parse(localStorage.getItem('rahba_products')||'[]');
-let cart=[];
-let shops=JSON.parse(localStorage.getItem('rahba_shops')||'[]');
-let orders=JSON.parse(localStorage.getItem('rahba_orders')||'[]');
-
-function save(){
-localStorage.setItem('rahba_products',JSON.stringify(products));
-localStorage.setItem('rahba_shops',JSON.stringify(shops));
-localStorage.setItem('rahba_orders',JSON.stringify(orders));
+const phone = "213798171593"; // غيّر الرقم إلى رقم المتجر عند الحاجة
+const items = [
+ ["فلتر زيت","فلاتر","1200"],
+ ["مصباح سيارة","إضاءة","2500"],
+ ["مفتاح عجلات","أدوات ميكانيك","1800"],
+ ["إكسسوارات سيارة","إكسسوارات","1500"],
+ ["قطعة محرك","محركات","3500"],
+ ["فلتر هواء","فلاتر","1700"]
+];
+const catalog=document.getElementById("catalog");
+function showProducts(list){
+ catalog.innerHTML="";
+ list.forEach(p=>{
+  catalog.innerHTML+=`
+   <div class="card">
+    <img src="https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=500" alt="${p[0]}">
+    <h3>${p[0]}</h3>
+    <p class="price">${Number(p[2]).toLocaleString("fr-DZ")} DA</p>
+    <button onclick="order('${p[0]}','${p[2]}')">اطلب الآن</button>
+   </div>`;
+ });
 }
-function show(id){
-document.querySelectorAll('main section').forEach(s=>s.style.display='none');
-document.getElementById(id).style.display='block';
-render();
+function filterProducts(){
+ const q=document.getElementById("search").value.toLowerCase();
+ showProducts(items.filter(p=>p.join(" ").toLowerCase().includes(q)));
 }
-function render(){
-let list=document.getElementById('productList');
-list.innerHTML=products.length?'':'<p>لا توجد منتجات حالياً.</p>';
-products.forEach((p,i)=>{
-list.innerHTML+=`<div class="card">
-<img src="${safe(p.image)}" onerror="this.style.display='none'">
-<h3>${safe(p.name)}</h3>
-<p class="price">${p.price} دج</p>
-<button class="action" onclick="addCart(${i})">أضف إلى السلة</button>
-</div>`;
-});
-document.getElementById('cartList').innerHTML=cart.map(i=>safe(products[i].name)).join('<br>')||'السلة فارغة';
-document.getElementById('shopRequests').innerHTML=shops.map(s=>`<p>${safe(s.name)} — ${safe(s.owner)} — ${safe(s.phone)}</p>`).join('')||'لا توجد طلبات';
-document.getElementById('orders').innerHTML=orders.map(o=>`<p>الزبون: ${safe(o.customer)} — ${safe(o.phone)} — ${safe(o.items)}</p>`).join('')||'لا توجد طلبات';
+function order(name,price){
+ const msg=`السلام عليكم، أريد طلب ${name} بسعر ${price} DA. هل هو متوفر؟`;
+ window.open("https://wa.me/"+phone+"?text="+encodeURIComponent(msg),"_blank");
 }
-function safe(s){
-return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function requestPart(){
+ const car=document.getElementById("car").value;
+ const part=document.getElementById("part").value;
+ if(!car || !part){alert("يرجى ملء معلومات السيارة والقطعة");return}
+ const msg=`السلام عليكم، أبحث عن قطعة: ${part} لسيارة: ${car}`;
+ window.open("https://wa.me/"+phone+"?text="+encodeURIComponent(msg),"_blank");
 }
-function addCart(i){cart.push(i);render();alert('تمت إضافة المنتج إلى السلة');}
-function registerShop(){
-if(!shopName.value||!owner.value||!phone.value){alert('أكمل المعلومات');return;}
-shops.push({name:shopName.value,owner:owner.value,phone:phone.value,type:shopType.value});
-save();alert('تم تسجيل الطلب في هذه النسخة التجريبية');render();
-}
-function addProduct(){
-if(!newName.value||!newPrice.value){alert('أدخل اسم المنتج والسعر');return;}
-products.push({name:newName.value,price:newPrice.value,image:newImage.value});
-save();alert('تمت إضافة المنتج');render();
-}
-function order(){
-if(!cart.length||!customer.value||!customerPhone.value){alert('أكمل بيانات الطلب');return;}
-orders.push({customer:customer.value,phone:customerPhone.value,address:address.value,items:cart.map(i=>products[i].name).join('، ')});
-save();cart=[];alert('تم حفظ الطلب في هذه النسخة التجريبية');render();
-}
-render();
+showProducts(items);
 </script>
 </body>
 </html>
