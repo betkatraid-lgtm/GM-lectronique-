@@ -4,127 +4,477 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PIAS PRO | قطع غيار السيارات</title>
+<title>RAID AUTO | متجر السيارات</title>
+
 <style>
+:root{
+--red:#c62828;
+--dark:#121a22;
+--light:#f4f6f8;
+--white:#fff;
+--gray:#687582;
+}
 *{box-sizing:border-box}
-body{margin:0;background:#101010;color:white;font-family:Arial,sans-serif}
-header{background:#181818;padding:18px 5%;display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid #e21b2d}
-.logo{font-size:27px;font-weight:900;color:#f02738}
-.logo span{color:white}
-nav a{color:white;text-decoration:none;margin:0 8px;font-size:14px}
-.hero{padding:55px 7%;background:linear-gradient(90deg,#170608,#111);text-align:center}
-.hero h1{font-size:36px;margin:10px}
-.hero h1 span{color:#ed2638}
-.hero p{color:#bbb}
-.btn{display:inline-block;background:#e51d30;color:white;padding:12px 22px;border:0;border-radius:6px;text-decoration:none;cursor:pointer;margin-top:12px}
-section{padding:30px 6%}
-h2{border-right:4px solid #e51d30;padding-right:12px}
-.search{width:100%;padding:14px;border:1px solid #444;background:#202020;color:white;border-radius:7px;margin:10px 0}
-.cars,.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:15px}
-.card{background:#1d1d1d;border:1px solid #333;border-radius:10px;overflow:hidden;text-align:center;padding-bottom:15px}
-.card img{width:100%;height:130px;object-fit:cover;background:#292929}
-.card h3{font-size:16px}
-.price{color:#ff4857;font-weight:bold}
-.card button{background:#d91f31;color:white;border:0;padding:10px 14px;border-radius:5px;cursor:pointer}
-.about{background:#1b1b1b;text-align:center}
-footer{background:#080808;text-align:center;padding:25px;color:#aaa}
-small{color:#aaa}
+body{
+margin:0;
+font-family:Tahoma,Arial,sans-serif;
+background:var(--light);
+color:#17212b
+}
+a{text-decoration:none;color:inherit}
+.top{
+background:var(--dark);
+color:white;
+padding:12px 5%;
+display:flex;
+justify-content:space-between;
+flex-wrap:wrap
+}
+header{
+background:white;
+padding:16px 5%;
+display:flex;
+justify-content:space-between;
+align-items:center;
+flex-wrap:wrap;
+position:sticky;
+top:0;
+z-index:10;
+box-shadow:0 2px 10px #0001
+}
+.brand{font-size:25px;font-weight:900}
+.brand span{color:var(--red)}
+nav{display:flex;gap:20px;flex-wrap:wrap}
+nav a:hover{color:var(--red)}
+button{cursor:pointer}
+.cart{
+background:var(--red);
+color:white;
+border:0;
+padding:12px 18px;
+border-radius:8px
+}
+.hero{
+width:90%;
+margin:25px auto;
+background:linear-gradient(120deg,#121a22,#344653);
+color:white;
+padding:45px;
+border-radius:18px;
+display:grid;
+grid-template-columns:1fr 1fr;
+align-items:center;
+gap:25px
+}
+.hero h1{font-size:40px}
+.hero p{line-height:2;color:#ddd}
+.hero img{
+width:100%;
+height:300px;
+object-fit:cover;
+border-radius:12px
+}
+.hero button{
+background:var(--red);
+border:0;
+padding:14px 25px;
+color:white;
+border-radius:8px
+}
+main{width:90%;margin:auto}
+.section-title{
+display:flex;
+justify-content:space-between;
+align-items:center;
+flex-wrap:wrap;
+gap:15px
+}
+.search{
+padding:12px;
+border:1px solid #ddd;
+border-radius:10px;
+width:260px
+}
+.filters{display:flex;gap:10px;margin:20px 0}
+.filters button{
+padding:10px 18px;
+border:1px solid #ddd;
+background:white;
+border-radius:20px
+}
+.filters button.active{
+background:var(--dark);
+color:white
+}
+.grid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:20px
+}
+.card{
+background:white;
+border-radius:14px;
+overflow:hidden;
+box-shadow:0 5px 15px #00008;
+}
+.card img{
+width:100%;
+height:240px;
+object-fit:cover
+}
+.card-body{padding:17px}
+.card h3{margin:10px 0}
+.description{
+color:var(--gray);
+line-height:1.8;
+font-size:14px
+}
+.price{
+font-weight:bold;
+font-size:18px;
+margin:15px 0
+}
+.buttons{display:flex;gap:10px}
+.buttons button{
+flex:1;
+padding:12px;
+border:0;
+border-radius:8px
+}
+.order{background:var(--red);color:white}
+.add{background:#e9edf0}
+.info{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:15px;
+margin:40px 0
+}
+.info article{
+background:white;
+padding:20px;
+border-radius:12px
+}
+.info p{color:var(--gray);line-height:1.8}
+footer{
+background:var(--dark);
+color:white;
+padding:35px 5%;
+margin-top:40px
+}
+.modal{
+display:none;
+position:fixed;
+inset:0;
+background:#0009;
+z-index:100;
+justify-content:center;
+align-items:center;
+padding:15px
+}
+.modal.open{display:flex}
+.modal-box{
+background:white;
+width:100%;
+max-width:450px;
+padding:25px;
+border-radius:15px
+}
+.modal-box input,.modal-box textarea{
+width:100%;
+padding:13px;
+margin:8px 0;
+border:1px solid #ddd;
+border-radius:8px;
+font-family:inherit
+}
+.modal-box textarea{height:100px}
+.send{
+background:var(--red);
+color:white;
+border:0;
+width:100%;
+padding:14px;
+border-radius:8px
+}
+.close{
+width:100%;
+padding:12px;
+border:0;
+margin-top:10px
+}
+@media(max-width:800px){
+.hero{grid-template-columns:1fr;padding:25px}
+.hero h1{font-size:30px}
+.grid{grid-template-columns:repeat(2,1fr)}
+.info{grid-template-columns:1fr}
+}
+@media(max-width:550px){
+header{gap:12px}
+nav{width:100%;font-size:13px;gap:12px}
+.grid{grid-template-columns:1fr}
+.hero img{height:220px}
+.search{width:100%}
+}
 </style>
 </head>
-<body>
-<header>
- <div class="logo">PIAS <span>PRO</span></div>
- <nav>
-  <a href="#cars">السيارات</a>
-  <a href="#products">المنتجات</a>
-  <a href="#contact">اتصل بنا</a>
- </nav>
-</header>
 
-<div class="hero">
- <h1>PIAS <span>PRO</span></h1>
- <h2 style="border:0">كل ما تحتاجه سيارتك في مكان واحد</h2>
- <p>قطع غيار • محركات • إكسسوارات • أدوات ميكانيك</p>
- <a class="btn" href="#products">اكتشف المنتجات</a>
+<body>
+
+<div class="top">
+<span>RAID AUTO | عالم المحركات وقطع الغيار</span>
+<span>خدمة الطلب والاستفسار</span>
 </div>
 
-<section id="cars">
- <h2>اختر سيارتك</h2>
- <div class="cars">
-  <div class="card">
-   <img src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=600" alt="سيارة Symbol">
-   <h3>Renault Symbol</h3>
-   <small>قطع غيار وإكسسوارات</small>
-  </div>
-  <div class="card">
-   <img src="https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=600" alt="سيارة كلاسيكية">
-   <h3>Renault 4</h3>
-   <small>قطع غيار وإكسسوارات</small>
-  </div>
- </div>
+<header>
+<div class="brand">RAID <span>AUTO</span></div>
+
+<nav>
+<a href="#home">الرئيسية</a>
+<a href="#products">المنتجات</a>
+<a href="#about">من نحن</a>
+<a href="#contact">اتصل بنا</a>
+</nav>
+
+<button class="cart" onclick="openCart()">
+🛒 السلة (<span id="count">0</span>)
+</button>
+</header>
+
+<section class="hero" id="home">
+<div>
+<h1>قطع السيارات<br>بكل سهولة</h1>
+<p>
+اكتشف المحركات وقطع السيارات، تصفح المنتجات،
+وأرسل طلبك مباشرة للتواصل والتأكد من المواصفات.
+</p>
+<a href="#products">
+<button>تصفح المنتجات</button>
+</a>
+</div>
+
+<img src="images/product1.jpg" alt="محرك سيارة">
 </section>
+
+<main>
 
 <section id="products">
- <h2>منتجاتنا</h2>
- <input class="search" id="search" placeholder="ابحث عن قطعة غيار..." oninput="filterProducts()">
- <div class="products" id="catalog"></div>
+<div class="section-title">
+<div>
+<h2>منتجاتنا</h2>
+<p>محركات وقطع السيارات</p>
+</div>
+
+<input class="search" id="search"
+placeholder="ابحث عن منتج..."
+oninput="render()">
+</div>
+
+<div class="filters">
+<button class="active" onclick="setFilter('all',this)">الكل</button>
+<button onclick="setFilter('engine',this)">المحركات</button>
+</div>
+
+<div class="grid" id="grid"></div>
 </section>
 
-<section class="about">
- <h2>اطلب قطعة غير متوفرة</h2>
- <p>أرسل اسم القطعة ونوع السيارة وسنتواصل معك.</p>
- <input class="search" id="car" placeholder="نوع السيارة والموديل">
- <input class="search" id="part" placeholder="اسم القطعة المطلوبة">
- <button class="btn" onclick="requestPart()">إرسال الطلب عبر واتساب</button>
+<section class="info" id="about">
+<article>
+<h3>🔧 قطع السيارات</h3>
+<p>مجموعة من قطع ومحركات السيارات المتوفرة للاستفسار.</p>
+</article>
+
+<article>
+<h3>🚘 تأكيد المواصفات</h3>
+<p>تواصل معنا قبل الطلب لتأكيد توافق القطعة مع سيارتك.</p>
+</article>
+
+<article>
+<h3>📦 الطلب والتوصيل</h3>
+<p>إرسال طلبك ومناقشة السعر والتوصيل مباشرة.</p>
+</article>
 </section>
 
-<section id="contact">
- <h2>تواصل معنا</h2>
- <p>PIAS PRO — YOUR AUTOMOTIVE PARTNER</p>
- <p>خدمة طلبات قطع الغيار في الجزائر</p>
-</section>
+</main>
 
-<footer>© 2026 PIAS PRO — جميع الحقوق محفوظة</footer>
+<footer id="contact">
+<h2>RAID AUTO</h2>
+<p>متجر المحركات وقطع غيار السيارات</p>
+<p>للطلب والاستفسار تواصل معنا عبر واتساب.</p>
+</footer>
+
+<div class="modal" id="modal">
+<div class="modal-box">
+
+<h3 id="modalTitle">طلب المنتج</h3>
+
+<input id="customer" placeholder="الاسم الكامل">
+<input id="phone" placeholder="رقم الهاتف">
+<input id="wilaya" placeholder="الولاية">
+<textarea id="notes" placeholder="نوع السيارة، سنة الصنع، تفاصيل الطلب"></textarea>
+
+<button class="send" onclick="sendOrder()">
+إرسال الطلب عبر واتساب
+</button>
+
+<button class="close" onclick="closeModal()">إغلاق</button>
+
+</div>
+</div>
 
 <script>
-const phone = "213798171593"; // غيّر الرقم إلى رقم المتجر عند الحاجة
-const items = [
- ["فلتر زيت","فلاتر","1200"],
- ["مصباح سيارة","إضاءة","2500"],
- ["مفتاح عجلات","أدوات ميكانيك","1800"],
- ["إكسسوارات سيارة","إكسسوارات","1500"],
- ["قطعة محرك","محركات","3500"],
- ["فلتر هواء","فلاتر","1700"]
+
+// ضع رقم واتساب الخاص بالمتجر هنا
+// اكتب الرقم مع 213 دون صفر البداية
+const WHATSAPP="213000000000";
+
+const products=[
+{
+id:1,
+name:"محرك سيارة",
+image:"images/product1.jpg",
+desc:"محرك مع ملحقاته، يرجى الاستفسار عن المواصفات.",
+price:"السعر عند الاستفسار"
+},
+{
+id:2,
+name:"مجموعة محرك",
+image:"images/product2.jpg",
+desc:"مجموعة ميكانيكية معروضة في الصور.",
+price:"السعر عند الاستفسار"
+},
+{
+id:3,
+name:"محرك وقطع ميكانيكية",
+image:"images/product3.jpg",
+desc:"قطع ومحركات، يرجى تأكيد التوافق.",
+price:"السعر عند الاستفسار"
+},
+{
+id:4,
+name:"قطع سيارات",
+image:"images/product4.jpg",
+desc:"قطع متنوعة للسيارات.",
+price:"السعر عند الاستفسار"
+},
+{
+id:5,
+name:"مجموعة قطع إضافية",
+image:"images/product5.jpg",
+desc:"استفسر عن التفاصيل وحالة المنتج.",
+price:"السعر عند الاستفسار"
+}
 ];
-const catalog=document.getElementById("catalog");
-function showProducts(list){
- catalog.innerHTML="";
- list.forEach(p=>{
-  catalog.innerHTML+=`
-   <div class="card">
-    <img src="https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=500" alt="${p[0]}">
-    <h3>${p[0]}</h3>
-    <p class="price">${Number(p[2]).toLocaleString("fr-DZ")} DA</p>
-    <button onclick="order('${p[0]}','${p[2]}')">اطلب الآن</button>
-   </div>`;
- });
+
+let cart=[];
+let filter="all";
+let selected=null;
+
+function render(){
+
+let q=document.getElementById("search").value.toLowerCase();
+
+let list=products.filter(p=>
+(filter==="all"||filter==="engine")&&
+(p.name.toLowerCase().includes(q)||p.desc.toLowerCase().includes(q))
+);
+
+document.getElementById("grid").innerHTML=list.map(p=>`
+
+<div class="card">
+
+<img src="${p.image}" alt="${p.name}">
+
+<div class="card-body">
+
+<h3>${p.name}</h3>
+
+<div class="description">${p.desc}</div>
+
+<div class="price">${p.price}</div>
+
+<div class="buttons">
+
+<button class="order" onclick="order(${p.id})">
+اطلب الآن
+</button>
+
+<button class="add" onclick="addCart(${p.id})">
+أضف للسلة
+</button>
+
+</div>
+</div>
+
+`).join("");
 }
-function filterProducts(){
- const q=document.getElementById("search").value.toLowerCase();
- showProducts(items.filter(p=>p.join(" ").toLowerCase().includes(q)));
+
+function setFilter(f,btn){
+filter=f;
+document.querySelectorAll(".filters button")
+.forEach(b=>b.classList.remove("active"));
+btn.classList.add("active");
+render();
 }
-function order(name,price){
- const msg=`السلام عليكم، أريد طلب ${name} بسعر ${price} DA. هل هو متوفر؟`;
- window.open("https://wa.me/"+phone+"?text="+encodeURIComponent(msg),"_blank");
+
+function addCart(id){
+cart.push(products.find(p=>p.id===id));
+document.getElementById("count").textContent=cart.length;
+alert("تمت إضافة المنتج إلى السلة");
 }
-function requestPart(){
- const car=document.getElementById("car").value;
- const part=document.getElementById("part").value;
- if(!car || !part){alert("يرجى ملء معلومات السيارة والقطعة");return}
- const msg=`السلام عليكم، أبحث عن قطعة: ${part} لسيارة: ${car}`;
- window.open("https://wa.me/"+phone+"?text="+encodeURIComponent(msg),"_blank");
+
+function order(id){
+selected=products.find(p=>p.id===id);
+document.getElementById("modalTitle").textContent="طلب: "+selected.name;
+document.getElementById("modal").classList.add("open");
 }
-showProducts(items);
+
+function openCart(){
+if(cart.length===0){
+alert("السلة فارغة");
+return;
+}
+selected=null;
+document.getElementById("modalTitle").textContent="طلب السلة";
+document.getElementById("modal").classList.add("open");
+}
+
+function closeModal(){
+document.getElementById("modal").classList.remove("open");
+}
+
+function sendOrder(){
+
+let name=document.getElementById("customer").value;
+let phone=document.getElementById("phone").value;
+let wilaya=document.getElementById("wilaya").value;
+let notes=document.getElementById("notes").value;
+
+if(!name||!phone){
+alert("يرجى إدخال الاسم ورقم الهاتف");
+return;
+}
+
+let items=selected?[selected]:cart;
+
+let message=
+"طلب جديد من RAID AUTO\n"+
+"الاسم: "+name+"\n"+
+"الهاتف: "+phone+"\n"+
+"الولاية: "+wilaya+"\n"+
+"المنتجات: "+items.map(p=>p.name).join("، ")+"\n"+
+"التفاصيل: "+notes;
+
+let url="https://wa.me/"+WHATSAPP+
+"?text="+encodeURIComponent(message);
+
+window.open(url,"_blank");
+
+closeModal();
+}
+
+render();
+
 </script>
+
 </body>
 </html>
